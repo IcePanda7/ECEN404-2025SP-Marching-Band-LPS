@@ -1,0 +1,90 @@
+body{                                               /* Style the body */
+    background-color: #0f121f;                      /* Change the background color */
+    color: #fff;                                    /* Change the text color */
+    background-image: url("signup.jpg");            /*import the static background image */
+    background-size: cover;                         /* Change the size of the background to fill the page */
+    height: 100vh;                                  /* Set the height to the full viewpoint height */
+    display: flex;                                  /* Set the display to flex to align items */
+    justify-content: center;                        /* Center the content on browser*/
+    align-items: center;                            /* Center the child items */
+    margin: 0;                                      /* Have no margin around */
+    padding: 0;                                     /* Have no padding around */
+    box-sizing: border-box;                         /* Box to manage width and height */
+}
+
+.background_space{                                  /* Style the background space */
+    width: 300px;                                   /* Set the width to 300 pixels */
+    height: 200px;                                  /* Set the height to 200 pixels */
+}
+
+form{                                               /* Style every form */
+    width: 100%;                                    /* Set the width to be the full size of the parent */
+    border-radius: 8px;                             /* Round the corners of the form */
+    font-size: 0.80em;                              /* Set the font size to 80% of it's parent element */
+}
+
+h1, form{                                           /* Style the form and header 1 */
+    margin: 0;                                      /* Have no margin around */
+    padding: 0;                                     /* Have no padding around */
+    box-sizing: border-box;                         /* Box to manage width and height */
+}
+
+.signup_space{                                      /* Style the space where the signup will be */
+    padding: 20px;                                  /* Have 20 pixels of padding all around */
+    border-radius: 8px;                             /* Round the corners */
+    width: 500px;                                   /* Set the width to 500 pixels */
+    height: 750px;                                  /* Set the height to 750 pixels */
+    background-color: olive;                        /* Change the background color */
+}
+
+h2{                                                 /* Style header 2 */
+    text-align: left;                               /* Align the text to the left */
+    margin-bottom: 5px;                             /* Add a margin of 5 pixels to just the bottom */
+    font-size: 1.25em;                              /* Set the font size to 125% of it's parent element */
+}
+
+label{                                              /* Style the label */
+    display: block;                                 /* Set the display to block */
+    margin-bottom: 5px;                             /* Add a margin of 5 pixels to just the bottom */
+    margin-top: 10px;                               /* Add a margin of 10 pixels to just the top */
+    font-weight: bold;                              /* Make the text bold */
+    font-size: 1.25em;                              /* Set the font size to 125% of it's parent element */
+}
+
+input{                                              /* Style the input */
+    width: 97.5%;                                   /* Change the width to 97.5% of the parent element */
+    padding: 5px;                                   /* Add 5 pixels of padding all around */
+    border: 1px solid black;                        /* Set a 1 pixel border that is black all around */
+    border-radius: 5px;                             /* Round the corners */
+    font-size: 1.5em;                               /* Set the font size to 150% of it's parent element */
+}
+
+select{                                             /* Style the select */
+    width: 100%;                                    /* Change the width to 100% of the parent element */
+    padding: 5px;                                   /* Add 5 pixels of padding all around */
+    border: 1px solid black;                        /* Set a 1 pixel border that is black all around */
+    border-radius: 5px;                             /* Round the corners */
+    font-size: 1.5em;                               /* Set the font size to 150% of it's parent element */
+}
+
+button{                                             /* Style the buttons */
+    margin-top: 20px;                               /* Add 20 pixels to the margin at the top */
+    background-color: green;                        /* Change the background color to green */
+    color: white;                                   /* Change the text color to white */
+    padding: 10px;                                  /* Add 10 pixels of padding all around */
+    border-radius: 5px;                             /* Round the corners */
+    width: 100%;                                    /* Change the width to 100% of the parent element */
+    font-size: 20px;                                /* Change the font size to 20 pixels */
+    cursor: pointer;                                /* Add a cursor that is a pointer on the buttons */
+}
+
+button:hover{                                       /* Style the button after the mouse is hovered over it */
+    background-color: darkgreen;                    /* Change the background color */
+}
+p:nth-of-type(7){                                   /* Style the 7th paragraph element */
+    display: none;                                  /* Don't display */
+}
+
+#id_usable_password, #id_usable_password_helptext{  /* Style the id's of id_usable_password and id_usable_password_helptext */
+    display: none;                                  /* Don't display */
+}

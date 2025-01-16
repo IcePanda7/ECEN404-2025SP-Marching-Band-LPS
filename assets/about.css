@@ -1,0 +1,141 @@
+body{
+    background-color: #0f121f;
+    color: #fff;
+}
+
+
+.w3-margin-bottom{
+    margin-right: 63px;
+    margin-left: 63px;
+
+}
+.nav ul{
+    margin: 0;
+}
+
+.nav li{
+    display: inline;
+}
+
+.nav a{
+    display: inline-block;
+    padding: .5em;
+    color: white;
+    text-decoration: none;
+}
+
+.main-nav{
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: lighter;
+    border-bottom: 1px solid rgba(255, 255, 255, .3);
+}
+
+.main-nav li{
+    padding: 0 5%;
+}
+
+.nav a:hover{
+    background-color: rgba(255, 255, 255, .3);
+
+}
+
+header{
+    background-color: #0f121f;
+    color: white;
+    padding-top: 30px;
+    text-align: center;
+}
+
+
+header h1{
+    text-align: center;
+    margin: 0;
+    font-size: 4em;
+    font-family: ui-rounded;
+    font-weight: normal;
+    color: white;
+}
+
+header p{
+    font-size: 1.2em;
+    margin-top: 10px;
+    opacity: 0.8;
+}
+
+
+
+h3{
+    font-size: 2.5em;
+    text-align: center;
+}
+
+.team-card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card{
+    text-align: center;
+    background-color: darkslategrey;
+    width: 30%;
+    margin: 20px 20px;
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.card:hover{
+    transform: translatey(-10px);
+}
+
+.card h4{
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.card p{
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: white;
+}
+
+.member{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+footer{
+    background-color: #333;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+footer p{
+    margin: 0;
+}
+
+
+
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", sans-serif;
+}
+body, html{
+    height: 100%;
+    line-height: 1.8;
+}
+.bgimg-1{
+    background-position: center;
+    background-size: cover;
+    background-image: url();
+    min-height: 100%;
+}
+.w3-bar .w3-button{
+    padding: 16px;
+}

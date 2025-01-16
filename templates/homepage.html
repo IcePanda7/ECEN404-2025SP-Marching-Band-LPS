@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>HomePage</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        
+
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'about.css' %}">
+    </head>
+    
+    <body>
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-card" id="myNavbar">
+                <a href="" class="w3-bar-item w3-button w3-wide">TEAM 8</a>
+                
+                <div class="w3-right w3-hide-small">
+                    <a href="#about" class="w3-bar-item w3-button"><i class="fa fa-map"></i> ABOUT</a>
+                    <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> TEAM</a>
+                    <a href="#operations" class="w3-bar-item w3-button"><i class="fa fa-th"></i> OPERATIONS</a>
+                    <a href="#subsystem" class="w3-bar-item w3-button"><i class="fa fa-cube"></i> SUBSYSTEM INTRO</a>
+                </div>
+                
+                <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="open()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+        </div>
+     
+        
+        
+        
+        
+        
+        <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
+            <a href="javascript:void(0)" onclick="close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+            <a href="#about" onclick="close()" class="w3-bar-item w3-button">ABOUT</a>
+            <a href="#team" onclick="close()" class="w3-bar-item w3-button">TEAM</a>
+            <a href="#operations" onclick="close()" class="w3-bar-item w3-button">WORK</a>
+            <a href="#subsystem" onclick="close()" class="w3-bar-item w3-button">PRICING</a>
+            <a href="#contact" onclick="close()" class="w3-bar-item w3-button">CONTACT</a>
+        </nav>
+        
+        
+        
+        
+        
+    
+        <header class="bgimg-1 w3-display-container w3-grayscale-min" id="home">
+            <div class="w3-display-left w3-text-white" style="padding:48px">
+                <span class="w3-jumbo w3-hide-small">Marching Band LPS</span><br>
+                <span class="w3-large">From the bright lights to the big screens.</span>
+                <p><a href="#about" class="w3-button w3-white w3-padding-large w3-large w3-margin-top w3-opacity w3-hover-opacity-off">Learn more and start today</a></p>
+            </div>
+            
+ 
+            
+            <div class="w3-display-bottomleft w3-text-grey w3-large" style="padding:24px 48px">
+                <i class="fa fa-facebook-official w3-hover-opacity"></i>
+                <i class="fa fa-instagram w3-hover-opacity"></i>
+                <i class="fa fa-snapchat w3-hover-opacity"></i>
+                <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+                <i class="fa fa-twitter w3-hover-opacity"></i>
+                <i class="fa fa-linkedin w3-hover-opacity"></i>
+            </div>
+        </header>
+    
+        
+        <div class="w3-container w3-light-grey w3-padding-64">
+            <div class="w3-row-padding">
+                <div class="w3-col m6">
+                    <h3>Problem:</h3>
+                    <p>Marching bands require very precise positioning for their shows, however, currently the only
+                        method of reviewing positions and formations of marchers is through a band tower which is
+                        only accessible to band directors.</p>
+                    <br>
+                    <br>
+                    <h3>Solution:</h3>
+                    <p>Develop a system of wearable transmitters that send signals to stationary receivers that
+                        will calculate the marcher's location. This data will then be sent to this web application
+                        for both marchers and directors to review and analyze the performances of the band.</p>
+                </div>
+                <div class="w3-col m6">
+                    <img src="{% static 'ProjectOverview.PNG' %}" alt="OverviewField" style="width: 90%; height: 90%; object-fit: cover;">
+                </div>
+            </div>
+        </div>
+        
+        <div class="w3-container" style="padding:128px 16px" id="team">
+            <h3 class="w3-center">THE TEAM</h3>
+            <div class="w3-row-padding w3-grayscale w3-center" style="margin-top:64px">
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div class="w3-card">
+                        <img src="{% static 'Alex.jpg' %}" alt="Alex" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; align-items: center;">
+                        <div class="w3-container">
+                            <h3>Alex Flores</h3>
+                            <p class="w3-opacity">Transmitter Operator</p>
+                            <p>Howdy! I’m a Texas A&M Electrical Engineering student, hoping to graduate in Spring 2025 with a minor in Mathematics.
+                            I was in charge of the hardware for the Marching Band LPS.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div class="w3-card">
+                        <img src="/w3images/team1.jpg" alt="Member" style="width:100%">
+                        <div class="w3-container">
+                            <h3>New Member:</h3>
+                            <p class="w3-opacity">Receiver Operator</p>
+                            <p>INSERT TEXT HERE.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="w3-col l3 m6 w3-margin-bottom">
+                    <div class="w3-card">
+                        <img src="{% static 'Vlad.jpg' %}" alt="Vlad" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover;">
+                        <div class="w3-container">
+                            <h3>Vlad Lebedev</h3>
+                            <p class="w3-opacity">Web Designer</p>
+                            <p>Hello! I am a class of Spring 25' A&M graduate with a Bachelor's degree in Electrical
+                            Engineering and a minor in Mathematics. I was in charge of any user interface for the Marching Band LPS.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="w3-container w3-light-grey" style="padding:50px 16px">
+            <div class="w3-row-padding">
+                <div class="w3-col m6">
+                    <h3>How it works.</h3>
+                    <p>Marcher:<br>As the marcher, the user is able to utilize a live feed of their position on the field 
+                        as well as other marchers. The marcher is able to toggle on the members on the field based on preference.
+                        The marcher is also able to select two recordings on the recordings page to overlay and analyze.</p>
+                    <br>
+                    <br>
+                    <p>Director:<br>As the director all the same options are available as for the marcher. There are some extra
+                        options as well. The director is allowed to create up to 10 different recordings that other users
+                        can analyze. The director is also allowed to change the users instrument and delete members.</p>
+                    <br>
+                    <br>
+                    <p><a href="#work" class="w3-button w3-black"><i class="fa fa-th"> </i> View The Operations</a></p>
+                </div>
+                <div class="w3-col m6">
+                    <img class="w3-image w3-round-large" src="{% static 'Devices.jpg' %}" alt="Devices" style="width: 700px; height: 600px;">
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <div class="w3-container" style="padding:128px 16px" id="about">
+            <h3 class="w3-center">ABOUT THE COMPANY</h3>
+            <p class="w3-center w3-large">Senior design project for Texas A&M University students with the following standards upheld.</p>
+            <div class="w3-row-padding w3-center" style="margin-top:64px">
+                <div class="w3-quarter">
+                    <i class="fa fa-lightbulb-o w3-margin-bottom w3-jumbo w3-center"></i>
+                    <p class="w3-large">Innovative</p>
+                    <p>The proposed solution should be a unique, modern, and an original way to help elevate the consistency and precision of marching band performances.</p>
+                </div>
+                <div class="w3-quarter">
+                    <i class="fa fa-handshake-o w3-margin-bottom w3-jumbo"></i>
+                    <p class="w3-large">Reliable</p>
+                    <p>The proposed solution should work under any conditions in which marching bands practice and should be able to provide the location of the marcher up to an uncertainty of one meter.</p>
+                </div>
+                <div class="w3-quarter">
+                    <i class="fa fa-code-fork w3-margin-bottom w3-jumbo"></i>
+                    <p class="w3-large">Design</p>
+                    <p>The proposed solution should be able to be utilized for both during practice in terms of a live feed of location and after practice in terms of recordings provided by the director.</p>
+                </div>
+                <div class="w3-quarter">
+                    <i class="fa fa-child w3-margin-bottom w3-jumbo"></i>
+                    <p class="w3-large">Support</p>
+                    <p>The proposed solution should allow both marchers and directors to navigate and operate functions in a simple manner without the need of a manual.</p>
+                </div>
+            </div>
+        </div>
+    
+        <div class="w3-container w3-light-grey" style="padding:50px 16px">
+            <div class="w3-row-padding">
+                {% if user.is_authenticated %}
+                    <h3>Go to Field View!</h3>
+                    <div class="w3-container w3-center w3-light-grey" style="padding-top:25px; padding-bottom:50px">
+                        <ul class="w3-ul w3-white">
+                            <li class="w3-light-grey w3-padding-24">
+                                <a href="{% url 'BandField:main' %}" class="w3-button w3-black w3-padding-large">BAND FIELD</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <h3>Logout</h3>
+                    <div class="w3-container w3-center w3-light-grey" style="padding-top:25px; padding-bottom:50px">
+                        <ul class="w3-ul w3-white">
+                            <li class="w3-light-grey w3-padding-24">
+                                <form class="logout-link" action="/accounts/logout/" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="w3-button w3-black w3-padding-large">LOGOUT</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                {% else %}
+                    <h3>Get started!</h3>
+                    <div class="w3-container w3-center w3-light-grey" style="padding-top:25px; padding-bottom:50px">
+                        <ul class="w3-ul w3-white">
+                            <li class="w3-light-grey w3-padding-24">
+                                <a href="{% url 'accounts:login' %}" class="w3-button w3-black w3-padding-large">LOGIN</a>
+                                <a href="{% url 'accounts:signup' %}" class="w3-button w3-black w3-padding-large">SIGNUP</a>
+                            </li>
+                        </ul>
+                    </div>
+            {% endif %}
+            </div>
+        </div>
+    
+        
+    
+        <div class="w3-container" style="padding:128px 16px" id="operations">
+            <h3 class="w3-center">WEBPAGE OPERATIONS</h3>
+            <p class="w3-center w3-large">How it works</p>
+            <div class="w3-row-padding" style="margin-top:64px">
+                <div class="w3-col l3 m6">
+                    <p>Marcher's Live Feed</p>
+                    <!-- Screen Capture -->
+                    <img src="/w3images/tech_mic.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Marcher Live Feed">
+                </div>
+                <div class="w3-col l3 m6">
+                    <p>Marcher's Recordings</p>
+                    <!-- Screen Capture -->
+
+                    <img src="/w3images/tech_phone.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Marcher Recordings">
+                </div>
+                <div class="w3-col l3 m6">
+                    <p>Director's Live Feed</p>
+                    <!-- Screen Capture -->
+                    <img src="/w3images/tech_drone.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Director Live Feed">
+                </div>
+                <div class="w3-col l3 m6">
+                    <p>Director's Recordings</p>
+                    <!-- Screen Capture -->
+                    <img src="/w3images/tech_sound.jpg" style="width:100%" onclick="onClick(this)" class="w3-hover-opacity" alt="Director Recordings">
+                </div>
+            </div>
+        </div>
+
+        
+        
+        
+    
+        <div class="w3-container w3-center w3-dark-grey" style="padding:128px 16px" id="subsystem">
+            <h3>SUBSYSTEM INTRO</h3>
+            <p class="w3-large">The following link sends you to the subsystem intro project needed for the website application.</p>
+            <div class="w3-row-padding" style="margin-top:64px">
+                <ul class="w3-ul w3-white">
+                    <li class="w3-dark-grey w3-padding-24">
+                        <a href="{% url 'subsystem' %}" class="w3-button w3-black w3-padding-large">COUNTER</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+            
+        
+    
+        <footer class="w3-center w3-black w3-padding-64">
+            <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+            <div class="w3-xlarge w3-section">
+                <i class="fa fa-facebook-official w3-hover-opacity"></i>
+                <i class="fa fa-instagram w3-hover-opacity"></i>
+                <i class="fa fa-snapchat w3-hover-opacity"></i>
+                <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+                <i class="fa fa-twitter w3-hover-opacity"></i>
+                <i class="fa fa-linkedin w3-hover-opacity"></i>
+            </div>
+            <p>Influenced by Texas A&M University</p>
+        </footer>
+    
+        <script>
+            // Modal Image Gallery
+            function onClick(element) {
+                document.getElementById("img01").src = element.src;
+                document.getElementById("modal01").style.display = "block";
+                let captionText = document.getElementById("caption");
+                captionText.innerHTML = element.alt;
+            }
+            
+            // Toggle between showing and hiding the sidebar when clicking the menu icon
+            let sidebar = document.getElementById("mySidebar");
+
+            function open() {
+                if (sidebar.style.display === 'block') {
+                    sidebar.style.display = 'none';
+                } else {
+                    sidebar.style.display = 'block';
+                }
+            }
+
+            // Close the sidebar with the close button
+            function close() {
+                sidebar.style.display = "none";
+            }
+        </script>
+    
+    </body>
+</html>

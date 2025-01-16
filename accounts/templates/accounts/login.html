@@ -1,0 +1,22 @@
+<!DOCTYPE html>                                                                                 <!-- Identifying document as html -->
+<html lang="en">                                                                                <!-- Defining the language of the html -->
+    <head>                                                                                      <!-- Start of the head -->
+        <meta charset="utf-8">                                                                  <!-- Declaring the character encoding -->
+        <title>Login</title>                                                                    <!-- Defining the title -->
+        {% load static %}                                                                       <!-- Loading static files -->
+        <link rel="stylesheet" href="{% static 'login.css' %}">                                 <!-- Retrieving CSS file that was used to style this HTML -->
+    </head>                                                                                     <!-- Closing the head -->
+
+    <body>                                                                                      <!-- Starting the body -->
+        <div class="login_space">                                                               <!-- Creating a div class for where the login contents will go -->
+            <h1>Login</h1>                                                                      <!-- Naming header 1 -->
+            <form class="site-form" action="/accounts/login/" method="post">                    <!-- Save to database user on an action -->
+                {% csrf_token %}                                                                <!-- A protection token to allow for the POST form -->
+                {{ form }}                                                                      <!-- Displaying the login form criteria (username and password) -->
+                <button type="submit" value="Login" class="login_button">Login</button>         <!-- The action is clicking the button "Login" -->
+            </form>                                                                             <!-- Closing the form -->
+        </div>                                                                                  <!-- Closing the div -->
+    </body>                                                                                     <!-- Closing the body -->
+</html>                                                                                         <!-- Closing the html -->
+
+

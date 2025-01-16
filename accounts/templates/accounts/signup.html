@@ -1,0 +1,27 @@
+<!DOCTYPE html>                                                                 <!-- Identifying document as html -->
+<html lang="en">                                                                <!-- Defining the language of the html -->
+    <head>                                                                      <!-- Start of the head -->
+        <meta charset="utf-8">                                                  <!-- Declaring the character encoding -->
+        <title>SignUp</title>                                                   <!-- Defining the title -->
+        {% load static %}                                                       <!-- Loading static files -->
+        <link rel="stylesheet" href="{% static 'signup.css' %}">                <!-- Retrieving CSS file that was used to style this HTML -->
+    </head>                                                                     <!-- Closing the head -->
+
+    <body>                                                                      <!-- Starting the body -->
+        <div class="signup_space">                                              <!-- Creating a div class for where the signup contents will go -->
+            <h1>Sign Up</h1>                                                    <!-- Naming header 1 -->
+            <form method="POST">                                                <!-- Save to database user on an action -->
+                {% csrf_token %}                                                <!-- A protection token to allow for the POST form -->
+
+                {{ user_form.as_p }}                                            <!-- Displaying the default signup form criteria like username, password, first name, last name -->
+
+                <h2>Role:</h2>                                                  <!-- Naming header 2 -->
+                {{ profile_form.role }}                                         <!-- Having the user select from the option of roles -->
+                <h2>Instrument:</h2>                                            <!-- Naming another header 2 -->
+                {{ profile_form.instrument }}                                   <!-- Having the user select from the option of instruments -->
+
+                <button type="submit">Sign Up</button>                          <!-- The action is clicking the button "Sign Up" -->
+            </form>                                                             <!-- Closing the form -->
+        </div>                                                                  <!-- Closing the div -->
+    </body>                                                                     <!-- Closing the body -->
+</html>                                                                         <!-- Closing the html -->

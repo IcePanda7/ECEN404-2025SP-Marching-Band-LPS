@@ -1,0 +1,73 @@
+
+<h1 class="title">Band Field</h1>                                   <!-- Naming heading 1 -->
+{% load static %}                                                   <!-- Loading static files -->
+<link rel="stylesheet" href="{% static 'field.css' %}">             <!-- Retrieving CSS file that was used to style this HTML -->
+
+<div class="button-section">                                        <!-- Div class for aligning the buttons section -->
+    <div class="buttons">                                           <!-- Div class for aligning client side buttons -->
+        <button id="start-recording" class="start-button" onclick="StartRecording()">Start Recording</button>           <!-- Button to start a recording -->
+        <button id="stop-recording" class="stop-button" onclick="StopRecording()">Stop Recording</button>               <!-- Button to stop a recording -->
+        <button class="people-button" onclick="ShowMembers()">People</button>                                           <!-- Button to reveal all the marchers on the field -->
+    </div>                                                          <!-- Closing the div -->
+
+    <form class="buttons" action="/BandField/band_recordings/" method="Post">           <!-- Send the user to the recordings page on an action -->
+        {% csrf_token %}                                                                <!-- A protection token to allow for the POST form -->
+        <button class="recordings-button" type="submit">Recordings</button>             <!-- The action is when the user clicks the "Recordings" button -->
+    </form>                                                                             <!-- Closing the form -->
+
+    <form class="buttons" action="/accounts/logout/" method="Post">                     <!-- Logout the user on an action -->
+        {% csrf_token %}                                                                <!-- A protection token to allow for the POST form -->
+        <button class="logout-button" type="submit">Logout</button>                     <!-- The action is when the user clicks the "Logout" button -->
+    </form>                                                                             <!-- Closing the form -->
+</div>                                                              <!-- Closing the div -->
+
+<script>
+    const csrf_token = "{{ csrf_token }}";                                                  <!-- Pass through the safety token into javascript-->
+    window.marcherData = JSON.parse('{{json_data.marcher_data_json|safe|escapejs}}');       <!-- Parse through the data to make it javascript ready -->
+</script>
+
+
+
+<div class="field-photo-space" id="field">                                                  <!-- Div class for where the field goes -->
+    <img src="{% static 'field.PNG' %}" alt="Field Photo" class="field-photo">              <!-- Retrieving the band field being displayed -->
+    <div id="dot" class="dot"></div>                                                        <!-- Associating the field location (div) with a dot div to place marchers -->
+</div>                                                                                      <!-- Closing the div -->
+
+
+
+<div class="members_list" id="members_list" style="display: none">                      <!-- Div class for where the members catalog goes -->
+            <h1>Band Members</h1>                                             <!-- Naming another header 1 -->
+
+            <table>                                                           <!-- Creating a table -->
+                <thead class="category_titles">                               <!-- Table headers (labels) -->
+                    <tr>                                                      <!-- Creating a table row -->
+                        <th>First Name</th>                                   <!-- Table header cell for first names -->
+                        <th>Last Name</th>                                    <!-- Table header cell for last names -->
+                        <th>Instrument</th>                                   <!-- Table header cell for instrument -->
+                        <th>Role</th>                                         <!-- Table header cell for role -->
+                        <th>Active</th>                                       <!-- Table header cell for toggling -->
+                    </tr>                                                     <!-- Closing table row -->
+                </thead>                                                      <!-- Closing table headers -->
+
+                <tbody class="items">                                         <!-- Table body class -->
+                    {% for marcher in json_data.marcher_data %}               <!-- Iterate through all the marchers from the rendered data -->
+                        <tr>                                                  <!-- Creating a table row -->
+                            <td>{{ marcher.first_name }}</td>                 <!-- Marcher's first name -->
+                            <td>{{ marcher.last_name }}</td>                  <!-- Marcher's last name -->
+                            <td>{{ marcher.instrument }}</td>                 <!-- Marcher's instrument -->
+                            <td>{{ marcher.role }}</td>                       <!-- Marcher's role -->
+                            <td>                                              <!-- Marcher's activation -->
+                                {% if marcher.role == 'marcher' %}            <!-- If the role is marcher and not director -->
+                                <label class="switch">                        <!-- Toggle switch -->
+                                    <input type="checkbox" class="user_activation" onclick="StartBlinking()" id="user_{{ marcher.username }}" checked>      <!-- Activate/De-active marcher on the field -->
+                                    <span class="slider round"></span>        <!-- Toggle switch style is a slider -->
+                                </label>                                      <!-- Close the label -->
+                                {% endif %}                                   <!-- End the if statement -->
+                            </td>                                             <!-- Closing the table cell -->
+                        </tr>                                                 <!-- Closing the table row -->
+                    {% endfor %}                                              <!-- Ending the for loop -->
+                </tbody>                                                      <!-- Closing the table body -->
+            </table>                                                          <!-- Closing the table -->
+        </div>                                                                <!-- Closing the div -->
+
+<script src="{% static 'Person.js' %}"></script>                              <!-- Linking the script file associated with this html -->

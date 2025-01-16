@@ -1,0 +1,20 @@
+<!DOCTYPE html>                                                                                     <!-- Identifying document as html -->
+<html lang="en">                                                                                    <!-- Defining the language of the html -->
+    <head>                                                                                          <!-- Start of the head -->
+        <meta charset="utf-8">                                                                      <!-- Declaring the character encoding -->
+        <title>SUB SYSTEM</title>                                                                   <!-- Defining the title -->
+    </head>                                                                                         <!-- Closing the head -->
+    <body>                                                                                          <!-- Starting the body -->
+        <h1>Sub-System</h1>                                                                         <!-- Naming heading 1 -->
+        <p>Marching Band LPS</p>                                                                    <!-- Paragraph text -->
+        <p>Counter value is {{ counter }}</p>                                                       <!-- Displaying the value that the counter is on -->
+        
+        <form method="Post">                                                                        <!-- Send data as a request to the view -->
+            {% csrf_token %}                                                                        <!-- A protection token to allow for the POST form -->
+            <div style="display: flex; flex-direction: column; gap: 10px; align-items: start;">     <!-- Styling of the buttons section -->
+                <button type="submit" name="increment" style="background-color: green; border-radius: 5px; color: white; padding: 10px 20px; cursor: pointer;">Increase</button>                <!-- Creating and styling the increase button -->
+                <button type="submit" name="decrement" style="background-color: red; border-radius: 5px; color: white; padding: 10px 20px; cursor: pointer;">Decrease</button>                <!-- Creating and styling the decrease button -->                  
+            </div>                                                                                  <!-- Closing the div -->
+        </form>                                                                                     <!-- Closing the form -->
+    </body>                                                                                         <!-- Closing the body -->
+</html>                                                                                             <!-- End of the html -->

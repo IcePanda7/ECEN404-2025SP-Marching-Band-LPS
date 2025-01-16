@@ -1,0 +1,173 @@
+body{                                               /* Style the body */
+    background-color: #0f121f;                      /* Change the background color */
+    color: #fff;                                    /* Change the text color */
+    margin: 0;                                      /* Set the margin to zero */
+    overflow-y: scroll;                             /* Always reveal the scroll bar on the vertical */
+    scrollbar-width: none;                          /* Remove the width the scroll bar  takes*/
+}
+body::-webkit-scrollbar{                            /* Style the scroll bar */
+    display: none;                                  /* Don't display */
+}
+
+.title{                                             /* Style the class "title" */
+    margin-bottom: 0;                               /* Set the margin at the bottom to zero */
+    font-size: 4em;                                 /* Change the font size to 400% of the parent element */
+    color: white;                                   /* Change the text color */
+    text-align: center;                             /* Align the text to the center of the parent */
+    margin-top: 50px;                               /* Set the margin at the top to 50 pixels */
+}
+
+.button-section{                                    /* Style the class "button-section" */
+    display: flex;                                  /* Display as flex for alignment */
+    justify-content: center;                        /* Center the content */
+    align-items: center;                            /* Align the items to the center */
+    width: 100%;                                    /* Change the width to 100% of the parent element */
+    box-sizing: border-box;                         /* To handle width and height */
+}
+
+.buttons {                                          /* Style the class section "buttons" */
+    display: flex;                                  /* Display as flex for alignment */
+    justify-content: space-around;                  /* Evenly space out content */
+    align-items: center;                            /* Align the items to the center */
+    gap: 25px;                                      /* Add a 25 pixel gap between content */
+    margin-left: 20px;                              /* Add a 20 pixel margin to the left */
+}
+
+.play-button, .pause-button, .live-button, .people-button, .logout-button{      /* Style the individual buttons with classes "play-button" "pause-button" "live-button" "people-button" "logout-button" */
+    flex-grow: 1;                                   /* To adjust the size of the flex */
+    font-size: 15px;                                /* Change the font size to 15 pixels */
+    padding: 10px 20px;                             /* Add 10 pixels of padding to the top and bottom and add 20 pixels of padding to the left and right */
+    border-radius: 10px;                            /* Round the corners */
+    cursor: pointer;                                /* Make the cursor a pointer on the buttons */
+    border: none;                                   /* Set no border */
+    color: white;                                   /* Change the text color to white */
+}
+
+.attempts{                                          /* Style the class "attempts" */
+    margin-right: -20px;                            /* Add a negative 20 pixel margin to the right */
+}
+
+.play-button{                                       /* Style the class "play-button" */
+    background-color: green;                        /* Change the background color */
+    margin-bottom: 15px;                            /* Add a 15 pixel margin at the bottom */
+}
+
+.pause-button{                                      /* Style the class "pause-button" */
+    background-color: red;                          /* Change the background color */
+    margin-bottom: 15px;                            /* Add a 15 pixel margin at the bottom */
+}
+
+.live-button{                                       /* Style the class "live-button" */
+    background-color: #2196F3;                      /* Change the background color */
+    margin-bottom: 15px;                            /* Add a 15 pixel margin at the bottom */
+}
+
+.people-button{                                     /* Style the class "people-button" */
+    background-color: #2196F3;                      /* Change the background color */
+    margin-bottom: 15px;                            /* Add a 15 pixel margin at the bottom */
+}
+
+.logout-button{                                     /* Style the class "logout-button" */
+    background-color: mediumslateblue;              /* Change the background color */
+    margin-bottom: 15px;                            /* Add a 15 pixel margin at the bottom */
+}
+
+.field-photo-space{                                 /* Style the class "field-photo-space" */
+    margin-left: 200px;                             /* Add a 200 pixel margin to the left */
+    margin-right: 200px;                            /* Add a 200 pixel margin to the right */
+}
+
+.field-photo{                                       /* Style the class "field-photo" */
+    width: 100%;                                    /* Change the width to 100% of the parent element */
+    max-width: 1960px;                              /* Set the max height of 1960 pixels */
+    height: auto;                                   /* Change the height automatically based on height */
+    border-radius: 5px;                             /* Round the corners */
+}
+
+@keyframes blink {                                  /* Adjust intermediate steps on how the dot blinks */
+    25% {opacity: 1;}                               /* 25% hidden */
+    50% {opacity: 0;}                               /* 50% hidden */
+    75% {opacity: 1;}                               /* 75% hidden */
+}
+
+.dot{                                               /* Style the class "dot" */
+    width: 5px;                                     /* Change the width to 5 pixels */
+    height: 5px;                                    /* Change the height to 5 pixels */
+    border-radius: 100%;                            /* Round corners to make a circle */
+    position: absolute;                             /* Have it's position be absolute */
+    visibility: visible;                            /* Reveal the dot */
+    animation: blink .75s infinite;                 /* Add a blinking animation that happens every 3/4 of a second forever */
+}
+
+.recording1{                                        /* Style the class "recording1" */
+    background-color: red;                          /* Change the background color */
+}
+.recording2{                                        /* Style the class "recording2" */
+    background-color: blue;                         /* Change the background color */
+}
+
+.members_list{                                      /* Style the class "members_list" */
+    text-align: center;                             /* Align the text in the center */
+}
+
+table{                                              /* Style the table */
+    width: 100%;                                    /* Change the width to 100% of it's parent element */
+}
+
+.category_titles{                                   /* Style the class "category_titles" */
+    font-weight: bold;                              /* Change the font to be bold */
+    font-size: 2em;                                 /* Change the font size to be 200% of it's parent element */
+}
+
+.items{                                             /* Style the class "items" */
+    font-size: 1.5em;                               /* Change the font size to be 150% of it's parent element */
+    text-align: center;                             /* Align the text in the center */
+}
+
+.switch{                                            /* Style the class "switch" */
+    position: relative;                             /* Change the position to be relative */
+    display: inline-block;                          /* Change the display to be inline */
+    width: 60px;                                    /* Change the width to be 60 pixels */
+    height: 34px;                                   /* Change the height to be 34 pixels */
+}
+.slider{                                            /* Style the class "slider" */
+    position: absolute;                             /* Change the position to be absolute */
+    cursor: pointer;                                /* Add a cursor over the slider */
+    top: 0;                                         /* Set the vertical top position */
+    left: 0;                                        /* Set the horizontal left position */
+    right: 0;                                       /* Set the horizontal right position */
+    bottom: 0;                                      /* Set the vertical bottom position */
+    background-color: #ccc;                         /* Change the background color */
+    -webkit-transition: .4s;                        /* Set the transition timing to 0.4 seconds */
+    transition: .4s;                                /* Set the transition timing to 0.4 seconds */
+}
+
+.slider:before{                                     /* Style before the class "slider" */
+    position: absolute;                             /* Change the position to be absolute */
+    content:"";                                     /* Insert empty content */
+    height: 26px;                                   /* Set the height to 26 pixels */
+    width: 26px;                                    /* Set the width to 26 pixels */
+    left: 4px;                                      /* Set the horizontal left position to 4 pixels */
+    bottom: 4px;                                    /* Set the vertical bottom position to 4 pixels */
+    background-color: white;                        /* Change the background color */
+    -webkit-transition: .4s;                        /* Set the transition timing to 0.4 seconds */
+    transition: .4s;                                /* Set the transition timing to 0.4 seconds */
+}
+
+input:checked +.slider{                             /* Style the slider class that has a checked input */
+    background-color: #2196F3;                      /* Change the background color */
+}
+input:focus +.slider{                               /* Style the slider class that has a focus input */
+    box-shadow: 0 0 1px #2196F3;                    /* Add a glow */
+}
+input:checked +.slider:before{                      /* Style the slider class when the input is checked */
+    -webkit-transform-origin: 26px;                 /* Set the origin */
+    -ms-transform: translate(26px);                 /* Translate 26 pixels to the right */
+    transform: translate(26px);                     /* Translate 26 pixels to the right */
+}
+.slider.round{                                      /* Style the class slider that has class "round" */
+    border-radius: 34px;                            /* Round the corners */
+}
+.slider.round:before{                               /* Style the before class slider that has class "round" */
+    border-radius: 50%;                             /* Round the corners */
+}

@@ -1,0 +1,93 @@
+<!DOCTYPE html>                                                                 <!-- Identifying document as html -->
+<html lang="en">                                                                <!-- Defining the language of the html -->
+    <head>                                                                      <!-- Start of the head -->
+        <meta charset="utf-8">                                                  <!-- Declaring the character encoding -->
+        <title>Recordings</title>                                               <!-- Defining the title -->
+        {% load static %}                                                       <!-- Loading static files -->
+        <link rel="stylesheet" href="{% static 'recordings.css' %}">            <!-- Retrieving CSS file that was used to style this HTML -->
+    </head>                                                                     <!-- Closing the head -->
+
+    <body>                                                                      <!-- Starting the body -->
+        <h1 class="title">Recordings</h1>                                       <!-- Naming heading 1 -->
+        <div class="button-section">                                            <!-- Creating a div to align buttons -->
+            <form class="buttons" method="Post">                                <!-- Send data as a request to the view -->
+                {% csrf_token %}                                                <!-- A protection token to allow for the POST form -->
+
+                <label for="attempt1" class="attempts">Attempt 1:</label>       <!-- Adding a label for the first selected attempt-->
+                <select id="attempt1" name="attempt1_id">                       <!-- Adding selection to the first select attempt -->
+                    <option value="">Select Attempt 1</option>                  <!-- Initial option on render -->
+                    {% for recording in recordings %}                           <!-- Iterate through all the recordings -->
+                        <option value="{{ recording.id }}">Attempt {{ recording.Attempt }} - {{ recording.timestamp }}</option>     <!-- Displaying the Attempt number and the time it was taken -->
+                    {% endfor %}                                                <!-- End the for loop -->
+                </select>                                                       <!-- Closing the select -->
+
+                <label for="attempt2" class="attempts">Attempt 2:</label>       <!-- Adding a label for the second selected attempt-->
+                <select id="attempt2" name="attempt2_id">                       <!-- Adding selection to the second select attempt -->
+                    <option value="">Select Attempt 2</option>                  <!-- Initial option on render -->
+                    {% for recording in recordings %}                           <!-- Iterate through all the recordings -->
+                        <option value="{{ recording.id }}">Attempt {{ recording.Attempt }} - {{ recording.timestamp }}</option>     <!-- Displaying the Attempt number and the time it was taken -->
+                    {% endfor %}                                                <!-- End the for loop -->
+                </select>                                                       <!-- Closing the select -->
+
+                <button type="button" id="Play" class="play-button" onclick="PlayButton()">Play</button>                                 <!-- Play button to play start the recording overlay -->
+                <button type="button" id="PauseContinue" class="pause-button" onclick="TogglePauseContinue()" disabled>Pause</button>    <!-- Pause/Continue button to either pause the overlay or resume it -->
+            </form>                                                             <!-- Closing the form -->
+
+            <form class="buttons" action="/BandField/" method="Post">           <!-- Send the user to the live feed page on an action -->
+                {% csrf_token %}                                                <!-- A protection token to allow for the POST form -->
+                <button class="live-button" type="submit">Live</button>         <!-- The action is when the user clicks the "Live" button -->
+            </form>                                                             <!-- Closing the form -->
+
+            <div class="buttons">                                               <!-- Div class for alignment -->
+                <button class="people-button" onclick="ShowMembers()">People</button>       <!-- Button to reveal all the marchers on the field -->
+            </div>                                                              <!-- Closing the div -->
+
+            <form class="buttons" action="/accounts/logout/" method="Post">     <!-- Logout the user on an action -->
+                {% csrf_token %}                                                <!-- A protection token to allow for the POST form -->
+                <button class="logout-button" type="submit">Logout</button>     <!-- The action is when the user clicks the "Logout" button -->
+            </form>                                                             <!-- Closing the form -->
+        </div>                                                                  <!-- Closing the div -->
+
+        <div class="field-photo-space" id="field">                              <!-- Div class for where the field goes -->
+            <img src="{% static 'field.PNG' %}" alt="Field Photo" class="field-photo">      <!-- Retrieving the band field being displayed -->
+            <div id="dot" class="dot"></div>                                    <!-- Associating the field location (div) with a dot div to place marchers -->
+        </div>                                                                  <!-- Closing the div -->
+
+        <div class="members_list" id="members_list" style="display: none">                <!-- Div class for where the members catalog goes -->
+            <h1>Band Members</h1>                                               <!-- Naming another header 1 -->
+
+            <table>                                                             <!-- Creating a table -->
+                <thead class="category_titles">                                 <!-- Table headers (labels) -->
+                    <tr>                                                        <!-- Creating a table row -->
+                        <th>First Name</th>                                     <!-- Table header cell for first names -->
+                        <th>Last Name</th>                                      <!-- Table header cell for last names -->
+                        <th>Instrument</th>                                     <!-- Table header cell for instrument -->
+                        <th>Role</th>                                           <!-- Table header cell for role -->
+                        <th>Active</th>                                         <!-- Table header cell for toggling -->
+                    </tr>                                                       <!-- Closing table row -->
+                </thead>                                                        <!-- Closing table headers -->
+
+                <tbody class="items">                                           <!-- Table body class -->
+                    {% for marcher in marcher_data %}                           <!-- Iterate through all the marchers from the rendered data -->
+                        <tr>                                                    <!-- Creating a table row -->
+                            <td>{{ marcher.first_name }}</td>                   <!-- Marcher's first name -->
+                            <td>{{ marcher.last_name }}</td>                    <!-- Marcher's last name -->
+                            <td>{{ marcher.instrument }}</td>                   <!-- Marcher's instrument -->
+                            <td>{{ marcher.role }}</td>                         <!-- Marcher's role -->
+                            <td>                                                <!-- Marcher's activation -->
+                                {% if marcher.role == 'marcher' %}              <!-- If the role is marcher and not director -->
+                                <label class="switch">                          <!-- Toggle switch -->
+                                    <input type="checkbox" class="user_activation" onclick="ToggleMarchers('{{ marcher.username}}', this.checked)" id="user_{{ marcher.username }}" checked>        <!-- Activate/De-active marcher on the field -->
+                                    <span class="slider round"></span>          <!-- Toggle switch style is a slider -->
+                                </label>                                        <!-- Close the label -->
+                                {% endif %}                                     <!-- End the if statement -->
+                            </td>                                               <!-- Closing the table cell -->
+                        </tr>                                                   <!-- Closing the table row -->
+                    {% endfor %}                                                <!-- Ending the for loop -->
+                </tbody>                                                        <!-- Closing the table body -->
+            </table>                                                            <!-- Closing the table -->
+        </div>                                                                  <!-- Closing the div -->
+
+        <script src="{% static 'Recording_Display.js' %}"></script>             <!-- Linking the script file associated with this html -->
+    </body>                                                                     <!-- Closing the body -->
+</html>                                                                         <!-- Closing the html -->
