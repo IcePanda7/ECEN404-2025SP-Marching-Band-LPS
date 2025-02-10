@@ -8,7 +8,8 @@ from watchdog.events import FileSystemEventHandler      # Import FileSystemEvent
 import os                                               # To interact with the operating system
 import django                                           # Django framework for backend
 
-sys.path.append("C:\\Users\\vladi\\PycharmProjects\\MarchingBangGPSWeb")        # Add the project path to the system path
+#sys.path.append("C:\\Users\\vladi\\PycharmProjects\\MarchingBangGPSWeb")        # Add the project path to the system path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 os.environ['DJANGO_SETTINGS_MODULE'] = 'MarchingBangGPSWeb.settings'            # Setting the virtual environment
 django.setup()                                                                  # Setting up framework
 
@@ -39,7 +40,8 @@ if __name__ == "__main__":                                                  # St
     logging.basicConfig(level=logging.INFO, format='%(asctime)s  - %(message)s',        # Set format for logging info
                         datefmt='%Y-%m-%d %H:%M:%S')
 
-    path = 'C:/Users/vladi/PycharmProjects/MarchingBangGPSWeb/assets'       # Directory path to data.txt file
+    #path = 'C:/Users/vladi/PycharmProjects/MarchingBangGPSWeb/assets'       # Directory path to data.txt file
+    path = os.path.join(os.path.dirname(__file__), 'assets')
     logging.info("Watchdog in progress")                                    # Log the start of watchdog
 
     event_handler = CustomEventHandler()                                    # Initialize custom event handler

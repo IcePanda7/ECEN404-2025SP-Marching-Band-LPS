@@ -14,7 +14,7 @@ import time                                                                 # To
 from django.http import JsonResponse                                        # To send JSON responses
 from django.utils import timezone                                           # To get the timezone date and times
 
-
+import sys
 watchdog_process = None
 
 # Create your views here.
@@ -68,7 +68,8 @@ def band_field(request):                                                    # De
     """
 
     if (watchdog_process is None) or (watchdog_process.poll() is not None):
-        watchdog_process = subprocess.Popen([r"C:\Users\vladi\PycharmProjects\MarchingBangGPSWeb\.venv\Scripts\python.exe", "C:/Users/vladi/PycharmProjects/MarchingBangGPSWeb/BandField/watchdog_daemon.py"])
+        #watchdog_process = subprocess.Popen([r"C:\Users\vladi\PycharmProjects\MarchingBangGPSWeb\.venv\Scripts\python.exe", "C:/Users/vladi/PycharmProjects/MarchingBangGPSWeb/BandField/watchdog_daemon.py"])
+        watchdog_process = subprocess.Popen([sys.executable, 'BandField/watchdog_daemon.py'])
 
 
 
