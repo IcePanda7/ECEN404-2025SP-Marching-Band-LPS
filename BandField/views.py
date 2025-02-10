@@ -14,12 +14,16 @@ import time                                                                 # To
 from django.http import JsonResponse                                        # To send JSON responses
 from django.utils import timezone                                           # To get the timezone date and times
 
+
+watchdog_process = None
+
 # Create your views here.
 @login_required(login_url="/accounts/login/")                               # Adding login required
 def band_field(request):                                                    # Defining band_field that takes in a user request
     directors = User.objects.filter(profile__role='director')               # Get all the directors
     marchers = User.objects.filter(profile__role='marcher')                 # Get all the marchers
     marcher_data=[]                                                         # Initialize empty list
+    global watchdog_process
 
     for director in directors:                                              # Append all director parameters in an object with default parameters
         marcher_data.append({'username': director.username, 'x_coordinate': 0,                                          # Adds the director's username, x and y coordinates, first name, last name, instrument, and role to the marcher_data list
@@ -60,6 +64,11 @@ def band_field(request):                                                    # De
             break                                                                                           # Exit the loop because network name was found
         else:                                                                                               # Otherwise there is no Wi-Fi connection
             print("No WiFi found.")
+
+
+    if (watchdog_process is None) or (watchdog_process.poll() is not None):
+        watchdog_process = subprocess.Popen([r"C:\Users\vladi\PycharmProjects\MarchingBangGPSWeb\.venv\Scripts\python.exe", "C:/Users/vladi/PycharmProjects/MarchingBangGPSWeb/BandField/watchdog_daemon.py"])
+
 
 
     if request.user.profile.role =='director':                                                              # Check if the user is a director to see which html render
@@ -194,3 +203,13 @@ def stop_recordings(request):                                                   
             return JsonResponse({'stop_session': session.Attempt})                      # Return the attempt that has stopped recording
         else:                                                                           # Otherwise
             return JsonResponse({})                                                     # Return nothing because there is no active recording session
+
+def stop_watchdog(request):
+    global watchdog_process
+    if watchdog_process:
+        watchdog_process.terminate()
+        watchdog_process.wait()
+        watchdog_process = None
+    return JsonResponse({"status": "Watchdog ended"})
+
+

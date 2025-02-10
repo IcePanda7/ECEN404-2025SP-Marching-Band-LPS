@@ -165,3 +165,8 @@ function ShowMembers(){                                                     // f
         x.style.display = "none";                                                 // Hide the display of members_list
     }
 }
+
+window.onbeforeunload = function (){
+    fetch('/BandField/stop_watchdog/')
+        .then(response => response.json())
+}
