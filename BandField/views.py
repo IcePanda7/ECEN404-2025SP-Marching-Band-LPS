@@ -55,6 +55,7 @@ def band_field(request):                                                    # De
         print('File not found')                                                 # Display error
     json_data = {"marcher_data": marcher_data, "marcher_data_json": json.dumps(marcher_data)}               # Object normal marcher data for html and dumps for JavaScript
 
+    """
     wifi = subprocess.check_output([r'C:\Windows\System32\netsh', 'WLAN', 'show', 'interfaces'])            # Get Wi-Fi details and is raw string so backslashes are not seen as escapes
     data = wifi.decode('iso-8859-1')                                                                        # Decoding the Wi-Fi details where iso was the encoder
     for line in data.split('\n'):                                                                           # Iterate through each line
@@ -64,7 +65,7 @@ def band_field(request):                                                    # De
             break                                                                                           # Exit the loop because network name was found
         else:                                                                                               # Otherwise there is no Wi-Fi connection
             print("No WiFi found.")
-
+    """
 
     if (watchdog_process is None) or (watchdog_process.poll() is not None):
         watchdog_process = subprocess.Popen([r"C:\Users\vladi\PycharmProjects\MarchingBangGPSWeb\.venv\Scripts\python.exe", "C:/Users/vladi/PycharmProjects/MarchingBangGPSWeb/BandField/watchdog_daemon.py"])
