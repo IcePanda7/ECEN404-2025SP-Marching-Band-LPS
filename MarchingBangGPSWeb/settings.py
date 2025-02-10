@@ -13,6 +13,14 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+import dj_database_url
+
+
+from dotenv import load_dotenv
+load_dotenv()
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -83,16 +91,18 @@ WSGI_APPLICATION = 'MarchingBangGPSWeb.wsgi.application'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'default':
+        dj_database_url.config(default=os.environ.get('DATABASE_URL', "postgresql://marching_band_postgresql_database_user:Fk7kuc95dwLLbEFO2PpV9E6jTbrfgeMO@dpg-cukqd1t6l47c73cevnmg-a.oregon-postgres.render.com/marching_band_postgresql_database"), conn_max_age=500)
+        #{
         #'ENGINE': 'django.db.backends.sqlite3',
         #'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('Database_Name'),
-        'USER': os.environ.get('Database_User'),
-        'PASSWORD': os.environ.get('Database_Password'),
-        'HOST': os.environ.get('Database_Host'),
-        'PORT': os.environ.get('Database_Port')
-    }
+        #'ENGINE': 'django.db.backends.postgresql',
+        #'NAME': os.environ.get('Database_Name'),
+        #'USER': os.environ.get('Database_User'),
+        #'PASSWORD': os.environ.get('Database_Password'),
+        #'HOST': 'dpg-cukqd1t6l47c73cevnmg-a.render.com',
+        #'PORT': os.environ.get('Database_Port')
+    #}
 }
 
 
