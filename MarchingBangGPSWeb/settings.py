@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-2v%r2vghbgms(c53^22ja0w)lim-fih1u!4w^@1smyzqd&g#g)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['172.20.10.2', 'localhost', '127.0.0.1']
+#'172.20.10.2', 'localhost', '127.0.0.1'
+ALLOWED_HOSTS = ['marching-band-lps.onrender.com', 'localhost', '127.0.0.1']
+
 
 
 AUTH_USER_MODEL = 'auth.User'
