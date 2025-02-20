@@ -56,22 +56,8 @@ def band_field(request):                                                    # De
         print('File not found')                                                 # Display error
     json_data = {"marcher_data": marcher_data, "marcher_data_json": json.dumps(marcher_data)}               # Object normal marcher data for html and dumps for JavaScript
 
-    """
-    wifi = subprocess.check_output([r'C:\Windows\System32\netsh', 'WLAN', 'show', 'interfaces'])            # Get Wi-Fi details and is raw string so backslashes are not seen as escapes
-    data = wifi.decode('iso-8859-1')                                                                        # Decoding the Wi-Fi details where iso was the encoder
-    for line in data.split('\n'):                                                                           # Iterate through each line
-        if "SSID" in line and "BSSID" not in line:                                                          # Look for SSID and not BSSID in the line to locate the network name
-            ssid = line.split(":")[1].strip()                                                               # Retrieve the network name
-            print("Your WiFi is:", ssid)                                                                    # Display the network name
-            break                                                                                           # Exit the loop because network name was found
-        else:                                                                                               # Otherwise there is no Wi-Fi connection
-            print("No WiFi found.")
-    """
-    """
-    if (watchdog_process is None) or (watchdog_process.poll() is not None):                                 # Check if watchdog is running
-        #watchdog_process = subprocess.Popen([r"C:\Users\vladi\PycharmProjects\MarchingBangGPSWeb\.venv\Scripts\python.exe", "C:/Users/vladi/PycharmProjects/MarchingBangGPSWeb/BandField/watchdog_daemon.py"])
-        watchdog_process = subprocess.Popen([sys.executable, 'BandField/watchdog_daemon.py'])               # Run watchdog
-    """
+
+
 
 
     if request.user.profile.role =='director':                                                              # Check if the user is a director to see which html render
