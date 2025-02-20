@@ -10,5 +10,6 @@ urlpatterns = [
     path('recording_data/', views.recording_data, name="recording_data"),           # Line recording_data function
     path('start-recordings/', views.start_recordings, name="start-recordings"),     # Link start_recordings function
     path('stop-recordings/', views.stop_recordings, name="stop-recordings"),        # Link stop_recordings function
-    path('stop_watchdog/', views.stop_watchdog, name="stop_watchdog")               # Link stop_watchdog function
+    path('stop_watchdog/', views.stop_watchdog, name="stop_watchdog"),              # Link stop_watchdog function
+    path('update_positions/', views.update_positions, name="update_positions")         # Link update_positions function
 ]

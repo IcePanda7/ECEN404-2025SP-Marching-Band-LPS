@@ -1,6 +1,7 @@
 from django.shortcuts import render                                         # To render pages
 from django.contrib.auth.decorators import login_required                   # To make users login
 from django.contrib.auth.models import User                                 # Retrieve the User model
+from django.views.decorators.csrf import csrf_exempt
 
 from accounts.models import Position                                        # Retrieve the Position model
 import os                                                                   # To access the data file
@@ -14,8 +15,8 @@ import time                                                                 # To
 from django.http import JsonResponse                                        # To send JSON responses
 from django.utils import timezone                                           # To get the timezone date and times
 
-import sys
-watchdog_process = None
+import sys                                                                  # To access functions for watchdog
+watchdog_process = None                                                     # Initiate watchdog
 
 # Create your views here.
 @login_required(login_url="/accounts/login/")                               # Adding login required
@@ -67,16 +68,16 @@ def band_field(request):                                                    # De
             print("No WiFi found.")
     """
 
-    if (watchdog_process is None) or (watchdog_process.poll() is not None):
+    if (watchdog_process is None) or (watchdog_process.poll() is not None):                                 # Check if watchdog is running
         #watchdog_process = subprocess.Popen([r"C:\Users\vladi\PycharmProjects\MarchingBangGPSWeb\.venv\Scripts\python.exe", "C:/Users/vladi/PycharmProjects/MarchingBangGPSWeb/BandField/watchdog_daemon.py"])
-        watchdog_process = subprocess.Popen([sys.executable, 'BandField/watchdog_daemon.py'])
+        watchdog_process = subprocess.Popen([sys.executable, 'BandField/watchdog_daemon.py'])               # Run watchdog
 
 
 
     if request.user.profile.role =='director':                                                              # Check if the user is a director to see which html render
-        return render(request, 'BandField/band_field.html', {'json_data': json_data})  # Render the director band field
+        return render(request, 'BandField/band_field.html', {'json_data': json_data})   # Render the director band field
     else:                                                                                                   # Otherwise the role is marcher
-        return render(request, 'BandField/bandfield.html',{'json_data': json_data})    # Render the marcher band field
+        return render(request, 'BandField/bandfield.html',{'json_data': json_data})     # Render the marcher band field
 
 
 @login_required(login_url="/accounts/login/")                                   # Adding login required
@@ -206,12 +207,46 @@ def stop_recordings(request):                                                   
         else:                                                                           # Otherwise
             return JsonResponse({})                                                     # Return nothing because there is no active recording session
 
-def stop_watchdog(request):
-    global watchdog_process
-    if watchdog_process:
-        watchdog_process.terminate()
-        watchdog_process.wait()
-        watchdog_process = None
-    return JsonResponse({"status": "Watchdog ended"})
+def stop_watchdog(request):                                                             # Define stop_watchdog that takes in a request
+    global watchdog_process                                                             # Get the state of watchdog_process
+    if watchdog_process:                                                                # If watchdog_process is running
+        watchdog_process.terminate()                                                    # Stop watchdog
+        watchdog_process.wait()                                                         # Wait for watchdog to end
+        watchdog_process = None                                                         # Reset watchdog_process
+    return JsonResponse({"status": "Watchdog ended"})                                   # Return that watchdog is no longer running
 
+@csrf_exempt                                                                            # Exempt the CSRF protection token
+def update_positions(request):                                                          # Define function update_positions that takes in a request
+    if request.method == 'POST':                                                        # Check if the request was a POST
+        try:                                                                            # Try
+            data = json.loads(request.body)                                             # Load the request data in variable data
+            updated_positions = []                                                      # Initialize empty list
 
+            for entry in data:                                                          # Iterate through each line
+                tag_id = entry.get("tag_id")                                            # Extract the tag_id/username
+                x_coordinate = entry.get("x_coordinate")                                # Extract the x_coordinate
+                y_coordinate = entry.get("y_coordinate")                                # Extract the y_coordinate
+
+                if not all([tag_id, x_coordinate, y_coordinate]):                       # Check is line has all required data
+                    print("ERROR")                                                      # Print error is not all required data present
+                    continue                                                            # Continue in the process of updating the Positions database
+
+                user = User.objects.filter(username=tag_id).first()                     # Find a user with a matching username
+                if user:                                                                # If a user exists
+                    position, created = Position.objects.get_or_create(user=user)       # Retrieve the user's position or create a new database entry if they don't have one
+                    position.x_coordinate = x_coordinate                                # Update the users x_coordinate in the database
+                    position.y_coordinate = y_coordinate                                # Update the users y_coordinate in the database
+                    position.save()                                                     # Save the new database
+
+                    updated_positions.append({                                          # Add the username, x_coordinate, and y_coordinate to the list as an entry
+                        "username": user.username,
+                        "x": x_coordinate,
+                        "y": y_coordinate})
+                else:                                                                   # If a user doesn't exist
+                    print("NO MATCH")                                                   # Display there was an error
+            return JsonResponse({"message": "Successful update", "updated_positions": updated_positions})               # Return JSON response with the updated positions
+
+        except json.JSONDecodeError:                                                    # Except handler for format
+            return JsonResponse({"message": "Invalid JSON"})                            # Return JSON response that there was an invalid format
+
+    return JsonResponse({"error": "Invalid request"})                                   # Return JSON response that the request could not be processed

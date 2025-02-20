@@ -19,6 +19,8 @@ from accounts.models import Position                                            
 
 class CustomEventHandler(FileSystemEventHandler):                           # Create a custom event handler for file system events
     def on_modified(self, event):                                           # Override the event handler
+
+        """
         if event.src_path.endswith("data.txt"):                             # Find data.txt file
             with open(event.src_path, 'r') as file:                         # Open the data.txt file to read
                 marchers = User.objects.filter(profile__role='marcher')     # Get all the marchers
@@ -34,6 +36,7 @@ class CustomEventHandler(FileSystemEventHandler):                           # Cr
                             break                                           # Exit the for loop
                         else:                                               # If the username doesn't match
                             continue                                        # Continue through the file
+        """
 
 
 if __name__ == "__main__":                                                  # Starting the code
