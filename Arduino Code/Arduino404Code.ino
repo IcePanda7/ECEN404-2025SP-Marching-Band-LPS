@@ -24,7 +24,7 @@
   const char *ssid = "Insert SSID here";                // Get the WiFi SSID
   const char *password = "SSID password here";          // Get the WiFi password
 
-  const char* server = "";                // Sever backend URL      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+  const char* server = "https://marching-band-lps.onrender.com";                // Sever backend URL      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
   // const char *host = "192.168.0.155";
   // uint_t portNum = 50000;
@@ -143,31 +143,67 @@ void sendToBackend(){                                                       // F
   }
 
   File file = SPIFFS.open("/uwb_data.txt", FILE_READ);                      // Open file to read
-  if(!file){                                                                // Check if the file opens
-    Serial.println("ERROR");                                                // Display error
+  if (!file){                                                               // Check if the file opens
+    Serial.println("File is not able to be opened.");                       // Display error
     return;
   }
 
-  String data = "";                                                         // Initialize string
-  while(file.available()){                                                  // Go through the entire file
-    data += file.readStringUntil('\n') + "\n";                              // Read each line
+  String jsonData = "[";                                                    // Initiate string array
+  bool firstEntry = true;                                                   // Track first entry
+
+  while (file.available()){                                                 // Iterate through each line
+    String line = file.readStringUntil('\n');                               // Read each line
+    line.trim();                                                            // Remove leading/trailing whitespaces
+
+    if (line.length() > 0){                                                 // Check thtat the line has data
+      uint16_t tag_id;                                                      // Variable to store tag ID
+      float x_coordinate, y_coordinate;                                     // Variables to store the x and y coordinates
+
+      sscanf(line.c_str(), "%04X %f %f", &tag_id, &x_coordinate, &y_coordinate);            // Parse the line and extract contents
+
+
+      tag_id = "HIPPO";
+      x_coordinate = 700;
+      y_coordinate = 700;
+
+
+
+      if(!firstEntry){                                                      // Check if it is the first entry
+        jsonData += ",";                                                    // Add comma to separate objects
+      }
+
+      jsonData += "{";                                                      // Start JSON object
+      jsonData += "\"tag_id\":\"" + String(tag_id, 5) + "\",";            // Add tag to object
+      jsonData += "\"x_coordinate\":" + String(x_coordinate, 3) + ",";      // Add x-coordinate to object
+      jsonData += "\"y_coordinate\":" + String(y_coordinate, 3);            // Add y-coordinate to object
+      jsonData += "}";                                                      // Close the JSON object
+
+      firstEntry = false;                                                   // No longer first entry
+    }
   }
-  file.close();                                                             // Close the file
 
+  file.close();                                                                   // Close the file
+  jsonData += "]";                                                                // Close string array
 
-  HTTPClient http;                                                          // Activate http
-  http.begin(server);                                                       // Begin HTTP connection to the backend
-  http.addHeader("Content-Type", "text/plain");                             // Send data as plain text
+  Serial.println(jsonData);                                                       // Display data being sent
 
-  Serial.print("Backend Data:");                                            // Display
-  Serial.println(data);                                                     // Display data
+  HTTPClient http;                                                                // Activate http
+  http.begin(server);                                                             // Begin HTTP connection to the backend
+  http.addHeader("Content-Type", "application/json");                             // Send data as JSON
 
-  int httpResponseCode = http.POST(data);                                   // Send data through HTTP Post
-  if(httpResponseCode > 0){                                                 // Check if code was sent
-    Serial.println("Data sent");                                            // Display that data has sent
+  int httpResponseCode = http.POST(jsonData);                                     // Send data through HTTP Post
+
+  if(httpResponseCode > 0){                                                       // Check if code was sent
+    Serial.println("JSON Data successfully sent");                                // Display that data has sent successfully
   }
-  http.end();                                                               // End the http connection
+  else{                                                                           // Otherwise
+    Serial.print("Error in send the data:");                                      // Display error
+    Serial.println(httpResponseCode);                                             // Display corresponding http response code
+  }
+
+  http.end();                                                                     // End the http connection                                                           
 }
+
 
 
 float calculateX(uint16_t tag_id, float distance){                          // Function to calculate the x coordinate
