@@ -166,7 +166,9 @@ function ShowMembers(){                                                     // f
     }
 }
 
+/*
 window.onbeforeunload = function (){                                    // Before loading the next html
     fetch('/BandField/stop_watchdog/')                                  // Retrieve the stop_watchdog function
         .then(response => response.json())                          // Stop watchdog from running
 }
+*/

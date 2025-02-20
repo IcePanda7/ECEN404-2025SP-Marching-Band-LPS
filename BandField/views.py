@@ -67,11 +67,11 @@ def band_field(request):                                                    # De
         else:                                                                                               # Otherwise there is no Wi-Fi connection
             print("No WiFi found.")
     """
-
+    """
     if (watchdog_process is None) or (watchdog_process.poll() is not None):                                 # Check if watchdog is running
         #watchdog_process = subprocess.Popen([r"C:\Users\vladi\PycharmProjects\MarchingBangGPSWeb\.venv\Scripts\python.exe", "C:/Users/vladi/PycharmProjects/MarchingBangGPSWeb/BandField/watchdog_daemon.py"])
         watchdog_process = subprocess.Popen([sys.executable, 'BandField/watchdog_daemon.py'])               # Run watchdog
-
+    """
 
 
     if request.user.profile.role =='director':                                                              # Check if the user is a director to see which html render
@@ -207,6 +207,7 @@ def stop_recordings(request):                                                   
         else:                                                                           # Otherwise
             return JsonResponse({})                                                     # Return nothing because there is no active recording session
 
+"""
 def stop_watchdog(request):                                                             # Define stop_watchdog that takes in a request
     global watchdog_process                                                             # Get the state of watchdog_process
     if watchdog_process:                                                                # If watchdog_process is running
@@ -214,6 +215,7 @@ def stop_watchdog(request):                                                     
         watchdog_process.wait()                                                         # Wait for watchdog to end
         watchdog_process = None                                                         # Reset watchdog_process
     return JsonResponse({"status": "Watchdog ended"})                                   # Return that watchdog is no longer running
+"""
 
 @csrf_exempt                                                                            # Exempt the CSRF protection token
 def update_positions(request):                                                          # Define function update_positions that takes in a request
