@@ -15,12 +15,12 @@ const char* serverURL = "https://marching-band-lps.onrender.com";  // Example: F
 HardwareSerial mySerial2(2);  // Use hardware serial 2 for communication with the UWB sensor
 
 #define RESET 16
-#define IO_RXD2 18
-#define IO_TXD2 17
-#define I2C_SDA 39
-#define I2C_SCL 38
+#define IO_RXD2 2
+#define IO_TXD2 15
+//#define I2C_SDA 39
+//#define I2C_SCL 38
 
-Adafruit_SSD1306 display(128, 64, &Wire, -1);  // OLED display initialization
+//Adafruit_SSD1306 display(128, 64, &Wire, -1);  // OLED display initialization
 
 String response = "";
 String rec_head = "AT+RANGE";
@@ -32,13 +32,15 @@ void setup() {
     Serial.begin(115200);          // Start the serial communication for debugging
     mySerial2.begin(115200, SERIAL_8N1, IO_RXD2, IO_TXD2); // Initialize communication with UWB sensor
 
-    Wire.begin(I2C_SDA, I2C_SCL);  // Initialize I2C for OLED display
+    //Wire.begin(I2C_SDA, I2C_SCL);  // Initialize I2C for OLED display
+
 
     // Initialize OLED display
-    if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    /*if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
         Serial.println(F("SSD1306 allocation failed"));
         for (;;);  // Infinite loop if display initialization fails
     }
+
     display.clearDisplay();
     display.setTextSize(2);
     display.setTextColor(SSD1306_WHITE);
@@ -46,22 +48,35 @@ void setup() {
     display.println(F("UWB Ready"));
     display.display();
     delay(2000);
+  */
+
 
     // Connect to Wi-Fi
     WiFi.begin(ssid, password);
+    
+    /*
     display.clearDisplay();
     display.setTextSize(1);
     display.setCursor(0, 0);
     display.println("Connecting to Wi-Fi...");
     display.display();
+    
+    */
+
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
         Serial.print(".");
     }
     Serial.println("\nWi-Fi connected");
+
+
+    /*
     display.println("Wi-Fi Connected");
     display.display();
+  */
+
 }
+
 
 void loop() {
     // Read data from UWB sensor
