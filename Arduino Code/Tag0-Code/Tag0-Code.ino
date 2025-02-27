@@ -20,7 +20,7 @@ Use 2.5.7   Adafruit_SSD1306
 #define FREQ_850K                 // Define frequency
 // #define FREQ_6800K
 
-#define UWB_TAG_COUNT 10          // Define max tag number
+#define UWB_TAG_COUNT 10          // Define max tag number                                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 // User config end       ------------------------------------------
 
@@ -53,7 +53,7 @@ void setup(){                                        // Function for setup
     SERIAL_LOG.print(F("Hello! ESP32-S3 AT command V1.0 Test"));        // Print message
     SERIAL_AT.begin(115200, SERIAL_8N1, IO_RXD2, IO_TXD2);              // Being serial communications
 
-    SERIAL_AT.println("AT");                                            // Print message???????????
+    SERIAL_AT.println("AT");                                            // Print message
     Wire.begin(I2C_SDA, I2C_SCL);                   // Initialize I2C with SDA and SCL
     delay(1000);                                    // Delay
     // SSD1306_SWITCHCAPVCC = generate display voltage from 3.3V internally
