@@ -220,5 +220,5 @@ String cap_cmd(){                   // Function to generate capability
     temp = temp + ",15,1";      // Set time slot for 6.8MHz
 #endif
 
-    return temp;                // Return the capability
+    return temp;                // Return the temp
 }
