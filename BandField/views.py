@@ -208,31 +208,25 @@ def update_positions(request):                                                  
     if request.method == 'POST':                                                        # Check if the request was a POST
         try:                                                                            # Try
             data = json.loads(request.body)                                             # Load the request data in variable data
-            updated_positions = []                                                      # Initialize empty list
 
-            for entry in data:                                                          # Iterate through each line
-                tag_id = entry.get("tag_id")                                            # Extract the tag_id/username
-                x_coordinate = entry.get("x_coordinate")                                # Extract the x_coordinate
-                y_coordinate = entry.get("y_coordinate")                                # Extract the y_coordinate
+            tag_id = data.get("tag_id")                                            # Extract the tag_id/username
+            x_coordinate = data.get("x_coordinate")                                # Extract the x_coordinate
+            y_coordinate = data.get("y_coordinate")                                # Extract the y_coordinate
 
-                if not all([tag_id, x_coordinate, y_coordinate]):                       # Check is line has all required data
-                    print("ERROR")                                                      # Print error is not all required data present
-                    continue                                                            # Continue in the process of updating the Positions database
+            if not all([tag_id, x_coordinate, y_coordinate]):                       # Check is line has all required data
+                print("ERROR")                                                      # Print error is not all required data present
 
-                user = User.objects.filter(username=tag_id).first()                     # Find a user with a matching username
-                if user:                                                                # If a user exists
-                    position, created = Position.objects.get_or_create(user=user)       # Retrieve the user's position or create a new database entry if they don't have one
-                    position.x_coordinate = x_coordinate                                # Update the users x_coordinate in the database
-                    position.y_coordinate = y_coordinate                                # Update the users y_coordinate in the database
-                    position.save()                                                     # Save the new database
+            user = User.objects.filter(username=tag_id).first()                     # Find a user with a matching username
+            if user:                                                                # If a user exists
+                position, created = Position.objects.get_or_create(user=user)       # Retrieve the user's position or create a new database entry if they don't have one
+                position.x_coordinate = x_coordinate                                # Update the users x_coordinate in the database
+                position.y_coordinate = y_coordinate                                # Update the users y_coordinate in the database
+                position.save()                                                     # Save the new database
+                return JsonResponse({"message": "Successful update", "username": user.username, "x":x_coordinate, "y":y_coordinate})  # Return JSON response with the updated positions
 
-                    updated_positions.append({                                          # Add the username, x_coordinate, and y_coordinate to the list as an entry
-                        "username": user.username,
-                        "x": x_coordinate,
-                        "y": y_coordinate})
-                else:                                                                   # If a user doesn't exist
-                    print("NO MATCH")                                                   # Display there was an error
-            return JsonResponse({"message": "Successful update", "updated_positions": updated_positions})               # Return JSON response with the updated positions
+            else:                                                                   # If a user doesn't exist
+                print("NO MATCH")                                                   # Display there was an error
+                return JsonResponse({"message": "ERROR"})                           # Return JSON response with the updated positions
 
         except json.JSONDecodeError:                                                    # Except handler for format
             return JsonResponse({"message": "Invalid JSON"})                            # Return JSON response that there was an invalid format
