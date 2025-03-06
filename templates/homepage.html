@@ -20,6 +20,7 @@
                 <a href="" class="w3-bar-item w3-button w3-wide">TEAM 8</a>
                 
                 <div class="w3-right w3-hide-small">
+                    <a href="#start" class="w3-bar-item w3-button"><i class="fa fa-child"></i> GET STARTED</a>
                     <a href="#about" class="w3-bar-item w3-button"><i class="fa fa-map"></i> ABOUT</a>
                     <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-user"></i> TEAM</a>
                     <a href="#operations" class="w3-bar-item w3-button"><i class="fa fa-th"></i> OPERATIONS</a>
@@ -35,15 +36,13 @@
         
         
         
-        
-        
         <nav class="w3-sidebar w3-bar-block w3-black w3-card w3-animate-left w3-hide-medium w3-hide-large" style="display:none" id="mySidebar">
             <a href="javascript:void(0)" onclick="close()" class="w3-bar-item w3-button w3-large w3-padding-16">Close ×</a>
+            <a href="#start" onclick="close()" class="w3-bar-item w3-button">GET STARTED</a>
             <a href="#about" onclick="close()" class="w3-bar-item w3-button">ABOUT</a>
             <a href="#team" onclick="close()" class="w3-bar-item w3-button">TEAM</a>
-            <a href="#operations" onclick="close()" class="w3-bar-item w3-button">WORK</a>
-            <a href="#subsystem" onclick="close()" class="w3-bar-item w3-button">PRICING</a>
-            <a href="#contact" onclick="close()" class="w3-bar-item w3-button">CONTACT</a>
+            <a href="#operations" onclick="close()" class="w3-bar-item w3-button">OPERATIONS</a>
+            <a href="#subsystem" onclick="close()" class="w3-bar-item w3-button">SUBSYSTEM INTRO</a>
         </nav>
         
         
@@ -91,9 +90,11 @@
             </div>
         </div>
         
+        
+        
         <div class="w3-container" style="padding:128px 16px" id="team">
             <h3 class="w3-center">THE TEAM</h3>
-            <div class="w3-row-padding w3-grayscale w3-center" style="margin-top:64px">
+            <div class="w3-row-padding w3-grayscale w3-center team-container" style="margin-top:64px">
                 <div class="w3-col l3 m6 w3-margin-bottom">
                     <div class="w3-card">
                         <img src="{% static 'Alex.jpg' %}" alt="Alex" style="width: 200px; height: 200px; border-radius: 50%; object-fit: cover; align-items: center;">
@@ -102,16 +103,6 @@
                             <p class="w3-opacity">Transmitter Operator</p>
                             <p>Howdy! I’m a Texas A&M Electrical Engineering student, hoping to graduate in Spring 2025 with a minor in Mathematics.
                             I was in charge of the hardware for the Marching Band LPS.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="w3-col l3 m6 w3-margin-bottom">
-                    <div class="w3-card">
-                        <img src="/w3images/team1.jpg" alt="Member" style="width:100%">
-                        <div class="w3-container">
-                            <h3>New Member:</h3>
-                            <p class="w3-opacity">Receiver Operator</p>
-                            <p>INSERT TEXT HERE.</p>
                         </div>
                     </div>
                 </div>
@@ -128,6 +119,8 @@
                 </div>
             </div>
         </div>
+        
+        
         
         <div class="w3-container w3-light-grey" style="padding:50px 16px">
             <div class="w3-row-padding">
@@ -188,7 +181,7 @@
             </div>
         </div>
     
-        <div class="w3-container w3-light-grey" style="padding:50px 16px">
+        <div class="w3-container w3-light-grey" style="padding:50px 16px" id="start">
             <div class="w3-row-padding">
                 {% if user.is_authenticated %}
                     <h3>Go to Field View!</h3>
@@ -310,6 +303,5 @@
                 sidebar.style.display = "none";
             }
         </script>
-    
     </body>
 </html>

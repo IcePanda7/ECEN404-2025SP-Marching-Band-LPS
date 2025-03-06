@@ -133,9 +133,15 @@ body, html{
 .bgimg-1{
     background-position: center;
     background-size: cover;
-    background-image: url();
     min-height: 100%;
 }
 .w3-bar .w3-button{
     padding: 16px;
+}
+
+.team-container{
+    display:flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
 }

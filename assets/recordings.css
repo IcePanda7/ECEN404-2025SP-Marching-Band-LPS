@@ -71,6 +71,10 @@ body::-webkit-scrollbar{                            /* Style the scroll bar */
     background-color: mediumslateblue;              /* Change the background color */
     margin-bottom: 15px;                            /* Add a 15 pixel margin at the bottom */
 }
+.play-button:hover, .pause-button:hover, .live-button:hover, .people-button:hover, .logout-button:hover{      /* Style the hover of the individual buttons with classes "start-button" "stop-button" "recordings-button" "people-button" "logout-button" */
+    transform: translateY(-2px);                    /* Move the button up 2px once the mouse is hovered over it*/
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);    /* Add a shadow to the button*/
+}
 
 .field-photo-space{                                 /* Style the class "field-photo-space" */
     margin-left: 200px;                             /* Add a 200 pixel margin to the left */
@@ -112,6 +116,18 @@ body::-webkit-scrollbar{                            /* Style the scroll bar */
 
 table{                                              /* Style the table */
     width: 100%;                                    /* Change the width to 100% of it's parent element */
+    border-collapse: collapse;                      /* Collapse border */
+}
+th, td{                                             /* Style table */
+    padding: 12px;                                  /* Add 12 pixel padding */
+    text-align: center;                             /* Center align the text */
+    color: inherit;                                 /* Table components inherit table settings */
+}
+tr:nth-child(even){                                 /* Style every even row */
+    background-color: rgba(255, 255, 255, 0.1);     /* Change background color */
+}
+tr:hover{                                           /* Style the hover of rows */
+    background-color: rgba(255, 255, 255, 0.2);     /* Change background color */
 }
 
 .category_titles{                                   /* Style the class "category_titles" */

@@ -3,10 +3,24 @@ body{                                               /* Style the body */
     color: #fff;                                    /* Change the text color */
     margin: 0;                                      /* Set the margin to zero */
     overflow-y: scroll;                             /* Always reveal the scroll bar on the vertical */
-    scrollbar-width: none;                          /* Remove the width the scroll bar  takes*/
+    scrollbar-width: none;                          /* Remove the width the scroll bar takes*/
+    font-family: sans-serif;                        /* Setting the body font */
+    line-height: 1.6;                               /* Setting line height */
+    background: linear-gradient(120deg, #0f121f, #1e2a47);      /* Background gradient */
+    transition: background-color 0.3s, color 0.3s;  /* Transition of background color and color */
 }
 body::-webkit-scrollbar{                            /* Style the scroll bar */
     display: none;                                  /* Don't display */
+}
+body.light-mode{                                    /* Body settings during light mode */
+    background: #fff;                               /* Set background color */
+    color: #333;                                    /* Set color */
+}
+body.light-mode h1{                                 /* Settings for h1 in light mode */
+    color: black;                                   /* Set color */
+}
+body.dark-mode h1{                                  /* Settings for h1 in dark mode */
+    color: white;                                   /* Set color */
 }
 
 .title{                                             /* Style the class "title" */
@@ -65,6 +79,11 @@ body::-webkit-scrollbar{                            /* Style the scroll bar */
     background-color: mediumslateblue;              /* Change the background color */
 }
 
+.start-button:hover, .stop-button:hover, .recordings-button:hover, .people-button:hover, .logout-button:hover{      /* Style the hover of the individual buttons with classes "start-button" "stop-button" "recordings-button" "people-button" "logout-button" */
+    transform: translateY(-2px);                    /* Move the button up 2px once the mouse is hovered over it*/
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2);    /* Add a shadow to the button*/
+}
+
 .field-photo-space{                                 /* Style the class "field-photo-space" */
     margin-left: 200px;                             /* Add a 200 pixel margin to the left */
     margin-right: 200px;                            /* Add a 200 pixel margin to the right */
@@ -103,6 +122,31 @@ body::-webkit-scrollbar{                            /* Style the scroll bar */
 
 table{                                              /* Style the table */
     width: 100%;                                    /* Change the width to 100% of it's parent element */
+    border-collapse: collapse;                      /* Collapse border */
+}
+body.dark-mode table{                               /* Table settings in dark mode */
+    color: white;                                   /* Set color */
+}
+body.light-mode table{                              /* Table settings in light mode */
+    color: black;                                   /* Set color */
+    background-color: #f0f0f0;                      /* Set background color */
+}
+th, td{                                             /* Style table */
+    padding: 12px;                                  /* Add 12 pixel padding */
+    text-align: center;                             /* Center align the text */
+    color: inherit;                                 /* Table components inherit table settings */
+}
+tr:nth-child(even){                                 /* Style every even row */
+    background-color: rgba(255, 255, 255, 0.1);     /* Change background color */
+}
+tr:hover{                                           /* Style the hover of rows */
+    background-color: rgba(255, 255, 255, 0.2);     /* Change background color */
+}
+body.light-mode tr:nth-child(even){                 /* Style every even row in light mode */
+    background-color: #e0e0e0;                      /* Change background color */
+}
+body.light-mode tr:hover{                           /* Style the hover of rows */
+    background-color: #d0d0d0;                      /* Change background color */
 }
 
 .category_titles{                                   /* Style the class "category_titles" */
@@ -161,4 +205,26 @@ input:checked +.slider:before{                      /* Style the slider class wh
 }
 .slider.round:before{                               /* Style the before class slider that has class "round" */
     border-radius: 50%;                             /* Round the corners */
+}
+
+.fab{                                               /* Style floating action button */
+    position: fixed;                                /* Set the position */
+    bottom: 20px;                                   /* 20 pixel margin from bottom */
+    right: 20px;                                    /* 20 pixel margin from right */
+    width: 56px;                                    /* Set width to 56 pixels */
+    height: 56px;                                   /* Set height to 56 pixels */
+    background: #007bff;                            /* Set the color of the background */
+    color: white;                                   /* Set the color */
+    border: none;                                   /* Set no border */
+    border-radius: 50%;                             /* Set border radius */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);       /* Add a box shadow */
+    cursor: pointer;                                /* Add cursor */
+    font-size: 24px;                                /* Change font size */
+    display: flex;                                  /* Set display to flex */
+    align-items: center;                            /* Center align items */
+    justify-content: center;                        /* Center justify */
+    transition: 0.3s ease-in-out;                   /* Add a transition */
+}
+.fab.light-mode{                                    /* Style floating action button in light mode */
+    background: #ff5722;                            /* Set the color of the background */
 }

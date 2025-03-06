@@ -166,3 +166,37 @@ function ShowMembers(){                                                     // f
     }
 }
 
+
+const fab = document.getElementById('toggle-theme');        // Retrieve the element id 'toggle-theme'
+const icon = fab.querySelector('i');                        // Retrieve the icon
+if(localStorage.getItem('dark-mode') === 'false' || localStorage.getItem('dark-mode') === 'null'){                           // Check if dark mode is stored locally
+    document.body.classList.add('light-mode');                                    // Set body to light mode
+    fab.classList.add('light-mode');                                              // Add light mode class to FAB
+    icon.classList.remove('fa-moon');                                      // Remove the moon icon
+    icon.classList.add('fa-sun');                                                 // Add the sun icon
+}
+else{                                                                             // Otherwise
+    document.body.classList.add('dark-mode');                                     // Set body to dark mode
+    fab.classList.add('dark-mode');                                               // Add dark mode class to FAB
+    icon.classList.remove('fa-sun');                                       // Remove the sun icon
+    icon.classList.add('fa-moon');                                                // Add the moon icon
+}
+
+fab.addEventListener('click', () =>{                            // Add event listener that looks for a click event
+    document.body.classList.toggle('light-mode');                           // Toggle light mode body
+    document.body.classList.toggle('dark-mode');                            // Toggle dark mode body
+
+    fab.classList.toggle('light-mode');                                     // Toggle light mode FAB
+    fab.classList.toggle('dark-mode');                                      // Toggle dark mode FAB
+
+    if(document.body.classList.contains('dark-mode')){                            // Check if dark mode is active
+        icon.classList.remove('fa-sun');                                   // Remove sun icon
+        icon.classList.add('fa-moon');                                            // Add moon icon
+        localStorage.setItem('dark-mode', 'true');                                // Save dark mode to true
+    }
+    else{                                                                         // Otherwise
+        icon.classList.remove('fa-moon');                                  // Remove moon icon
+        icon.classList.add('fa-sun');                                             // Add sun icon
+        localStorage.setItem('dark-mode', 'false');                               // Save dark mode to false
+    }
+});

@@ -2,11 +2,12 @@
 <h1 class="title">Band Field</h1>                                   <!-- Naming heading 1 -->
 {% load static %}                                                   <!-- Loading static files -->
 <link rel="stylesheet" href="{% static 'field.css' %}">             <!-- Retrieving CSS file that was used to style this HTML -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">    <!-- URL for external icons -->
 
 <div class="button-section">                                        <!-- Div class for aligning the buttons section -->
     <div class="buttons">                                           <!-- Div class for aligning client side buttons -->
-        <button id="start-recording" class="start-button" onclick="StartRecording()">Start Recording</button>           <!-- Button to start a recording -->
-        <button id="stop-recording" class="stop-button" onclick="StopRecording()">Stop Recording</button>               <!-- Button to stop a recording -->
+        <button id="start-recording" class="start-button" onclick="StartRecording()"><i class="fa fa-play"></i> Start Recording</button>           <!-- Button to start a recording -->
+        <button id="stop-recording" class="stop-button" onclick="StopRecording()"><i class="fa fa-stop"></i> Stop Recording</button>               <!-- Button to stop a recording -->
         <button class="people-button" onclick="ShowMembers()">People</button>                                           <!-- Button to reveal all the marchers on the field -->
     </div>                                                          <!-- Closing the div -->
 
@@ -69,5 +70,9 @@
                 </tbody>                                                      <!-- Closing the table body -->
             </table>                                                          <!-- Closing the table -->
         </div>                                                                <!-- Closing the div -->
+
+<button class="fab" id="toggle-theme">                                        <!-- Adding a button for toggling light/dark mode -->
+    <i class="fa fa-moon"></i>                                                <!-- Icon for dark mode -->
+</button>                                                                     <!-- Closing the button -->
 
 <script src="{% static 'Person.js' %}"></script>                              <!-- Linking the script file associated with this html -->
