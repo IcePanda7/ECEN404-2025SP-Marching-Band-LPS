@@ -318,7 +318,7 @@ input:checked +.slider:before{                      /* Style the slider class wh
     }
     .start-button, .stop-button, .recordings-button, .people-button, .logout-button{
         font-size: 12px;
-        padding: 6px 12px;
+        padding: 3px 7px;
     }
     .field-photo-space{
         margin-left: 20px;
