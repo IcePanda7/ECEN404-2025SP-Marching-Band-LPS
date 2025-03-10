@@ -71,8 +71,9 @@ def recent_position(request):                                                   
     marchers = User.objects.filter(profile__role='marcher')                     # Get all the marchers
     marcher_data = []                                                           # Initialize empty list
     for marcher in marchers:                                                    # Append all director parameters in an object with default parameters
-        marcher_data.append({'username': marcher.username, 'x_coordinate': marcher.position.x_coordinate,               # Adding marcher's username, x and y coordinates, and role to the empty list
-                             'y_coordinate': marcher.position.y_coordinate, 'role':marcher.profile.role})
+        marcher_data.append({'username': marcher.username, 'x_coordinate': marcher.position.x_coordinate,               # Adding marcher's username, x and y coordinates, first name, last name, and role to the empty list
+                             'y_coordinate': marcher.position.y_coordinate, 'first_name': marcher.first_name,
+                             'last_name': marcher.last_name, 'instrument': marcher.profile.instrument, 'role':marcher.profile.role})
     return JsonResponse({'marcher_data': marcher_data})                         # Returning a Json response of all the marchers current position for live feed
 
 @login_required(login_url="/accounts/login/")                                   # Adding login required

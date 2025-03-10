@@ -26,12 +26,43 @@ function StartBlinking(){                                                 // Def
                 dot.setAttribute("id", "dot"+marcher.username);     // Give the dot attributes to be able to access to toggle
             }
 
+            let hash = 0;                                                       // Initiate hash
+            for (let i = 0; i < marcher.username.length; i++){                  // Iterate through the full username
+                hash = (hash * 31 + marcher.username.charCodeAt(i)) % 360;              // Create a hash number based off username
+            }
+
+            if (hash >= 90 && hash <= 150){                                             // If the hash is in the green color palette
+                hash = (hash + 80) % 360;                                               // Avoid green palette
+            }
+
+            dot.style.backgroundColor = `hsl(${hash}, 80%, 45%)`;                       // Change the background color of the marcher dot
+
+            const slider = checkbox.nextElementSibling;                         // Get the slider
+            if (slider){                                                                 // See if the user has a slider
+                slider.style.backgroundColor = checkbox.checked ? `hsl(${hash}, 80%, 45%)` : 'hsl(0, 0%, 50%)';         // Match the slider color to their dot color and if user is deactivated slider is gray
+            }
+
             if (checkbox.checked){                                              // Check if the marcher is toggled on (activated)
                 console.log("Being enabled");                                   // Log that the dot is enabled
                 dot.classList.add('dot', 'blinking');                           // Add blinking to the dot
                 dot.style.visibility = 'visible';                               // Set the style of the dot to be visible
                 RandomMovement(marcher, dot);                                   // Call the RandomMovement function and send parameters marcher and dot to change the move the dot
                 field.appendChild(dot);                                         // Add the dot to the field
+
+                let tooltip = document.createElement('div');            // Creating a div for the tooltip
+                tooltip.classList.add('tooltip');                                               // Adding a class
+                tooltip.innerHTML = `First Name: ${marcher.first_name}<br>Last Name: ${marcher.last_name}<br>Instrument: ${marcher.instrument}`;        // The contents of the description
+                dot.appendChild(tooltip);                                                       // Adding a box for every user
+
+                dot.addEventListener('mouseenter', function(){              // For when a user hovers over a dot
+                    tooltip.classList.add('show');                                             // Show the description box
+                    const rect = dot.getBoundingClientRect();                        // To position the box
+                    tooltip.style.left = `${rect.left-190}px`;                                 // Position from the left
+                    tooltip.style.top = `${rect.top-190}px`;                                   // Position from the top
+                });
+                dot.addEventListener('mouseleave', function(){              // For when a user hover off a dot
+                    tooltip.classList.remove('show');                                   // Don't show the description box
+                });
             }
             else{                                                               // Marcher is toggle off (de-activated)
                 console.log('Being disabled')                                   // Log that the dot is being toggled off

@@ -1,20 +1,21 @@
-body{                                               /* Style the body */
-    background-color: #0f121f;                      /* Change the background color */
+html, body{                                         /* Style the body */
+    background: linear-gradient(120deg, #0f121f, #1e2a47);      /* Background gradient */
     color: #fff;                                    /* Change the text color */
     margin: 0;                                      /* Set the margin to zero */
     overflow-y: scroll;                             /* Always reveal the scroll bar on the vertical */
-    scrollbar-width: none;                          /* Remove the width the scroll bar  takes*/
+    font-family: sans-serif;                        /* Setting the body font */
+    height: 100%;
 }
-body::-webkit-scrollbar{                            /* Style the scroll bar */
-    display: none;                                  /* Don't display */
+html{                                               /* Style the html */
+    scrollbar-width: none;                          /* Remove the width the scroll bar takes*/
 }
 
 .title{                                             /* Style the class "title" */
-    margin-bottom: 0;                               /* Set the margin at the bottom to zero */
+    margin-bottom: 15px;                            /* Set the margin at the bottom to zero */
     font-size: 4em;                                 /* Change the font size to 400% of the parent element */
     color: white;                                   /* Change the text color */
     text-align: center;                             /* Align the text to the center of the parent */
-    margin-top: 50px;                               /* Set the margin at the top to 50 pixels */
+    margin-top: 15px;                               /* Set the margin at the top to 15 pixels */
 }
 
 .button-section{                                    /* Style the class "button-section" */
@@ -108,6 +109,20 @@ body::-webkit-scrollbar{                            /* Style the scroll bar */
 }
 .recording2{                                        /* Style the class "recording2" */
     background-color: blue;                         /* Change the background color */
+}
+
+.attempt-dot{                                       /* Style the dots that indicate what attempt */
+    display: inline-block;                          /* Set display to be inline block */
+    width: 12px;                                    /* 12 pixel width of the dot */
+    height: 12px;                                   /* 12 pixel height of the dot */
+    border-radius: 50%;                             /* Make dot circular */
+    margin-right: -20px;                            /* -20 pixel margin from the right */
+}
+.red{                                               /* Attempt #1 dot */
+    background-color: red;                          /* Style dot color red */
+}
+.blue{                                              /* Attempt #2 dot */
+    background-color: blue;                         /* Style dot color blue */
 }
 
 .members_list{                                      /* Style the class "members_list" */

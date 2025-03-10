@@ -228,3 +228,21 @@ input:checked +.slider:before{                      /* Style the slider class wh
 .fab.light-mode{                                    /* Style floating action button in light mode */
     background: #ff5722;                            /* Set the color of the background */
 }
+
+.tooltip{                                           /* Styling the tooltip description box */
+    position: absolute;                             /* Set position to absolute */
+    background-color: rgba(0, 0, 0, 0.7);           /* Background color of the description box */
+    color: white;                                   /* Text color */
+    padding: 5px;                                   /* 5 pixel padding */
+    border-radius: 5px;                             /* 5 pixel border radius */
+    visibility: hidden;                             /* Hide the description box */
+    opacity: 0;                                     /* Not visible */
+    transition: opacity 0.3s;                       /* For hover */
+    z-index: 10;                                    /* Setting the z index */
+    font-size: 12px;                                /* Setting the font size */
+    white-space: nowrap;                            /* Ensure text doesn't wrap */
+}
+.tooltip.show{                                      /* Style description box on show */
+    visibility: visible;                            /* Show the description box */
+    opacity: 1;                                     /* Visible */
+}

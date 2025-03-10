@@ -14,6 +14,7 @@
                 {% csrf_token %}                                                <!-- A protection token to allow for the POST form -->
 
                 <label for="attempt1" class="attempts">Attempt 1:</label>       <!-- Adding a label for the first selected attempt-->
+                <div class="attempt-dot red"></div>                             <!-- Red dot attempt indicator -->
                 <select id="attempt1" name="attempt1_id">                       <!-- Adding selection to the first select attempt -->
                     <option value="">Select Attempt 1</option>                  <!-- Initial option on render -->
                     {% for recording in recordings %}                           <!-- Iterate through all the recordings -->
@@ -22,6 +23,7 @@
                 </select>                                                       <!-- Closing the select -->
 
                 <label for="attempt2" class="attempts">Attempt 2:</label>       <!-- Adding a label for the second selected attempt-->
+                <div class="attempt-dot blue"></div>                            <!-- Blue dot attempt indicator -->
                 <select id="attempt2" name="attempt2_id">                       <!-- Adding selection to the second select attempt -->
                     <option value="">Select Attempt 2</option>                  <!-- Initial option on render -->
                     {% for recording in recordings %}                           <!-- Iterate through all the recordings -->
