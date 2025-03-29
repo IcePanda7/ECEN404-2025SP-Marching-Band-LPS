@@ -1,114 +1,289 @@
-#include <WiFi.h>                          // Library for WiFi connections
-#include <HTTPClient.h>                    // Library for HTTP functions for client
-#include <Wire.h>                          // Library for I2C communications
-#include <Adafruit_GFX.h>                  // Library for display
-#include <Adafruit_SSD1306.h>              // Library for OLED display
-#include <Arduino.h>                       // Library for Ardunio functions
+#include <WiFi.h>
+#include <HTTPClient.h>
+#include <Wire.h>
+#include <Arduino.h>
 
 // Wi-Fi credentials
-const char* ssid = "Engr Fahad";           // Replace with your Wi-Fi SSID
-const char* password = "x73S3234";         // Replace with your Wi-Fi password
+// ESP32 Board MAC Address: ******
+
+
+//Alex Apartment WiFi
+// const char* ssid = "******";           // Replace with your Wi-Fi SSID
+// const char* password = "******";      // Replace with your Wi-Fi password
+
+//TAMU WiFi
+//const char* ssid = "******";           // Replace with your Wi-Fi SSID
+
+//Alex Phone WiFi
+// const char* ssid = "******";           // Replace with your Wi-Fi SSID
+// const char* password = "******";      // Replace with your Wi-Fi password
+
+//Alex House
+const char* ssid = "******";           // Replace with your Wi-Fi SSID
+const char* password = "******";      // Replace with your Wi-Fi password
 
 // Web server URL (Replace with your Flask server IP)
-const char* serverURL = "https://marching-band-lps.onrender.com/update_positions/";  // Example: Flask server running on IP 192.168.100.3
+const char* serverURL = "https://marching-band-lps.onrender.com/BandField/update_positions/";  // Example: Flask server running on IP 192.168.100.3
 
-HardwareSerial mySerial2(2);                // Use hardware serial 2 for communication with the UWB sensor
+HardwareSerial mySerial2(2);  // Use hardware serial 2 for communication with the UWB sensor
 
-#define RESET 16                            // Set the RESET pin to pin 16
-#define IO_RXD2 18                          // Set the RXD2 pin to pin 18
-#define IO_TXD2 17                          // Set the TXD2 pin to pin 17
-#define I2C_SDA 39                          // Set the SDA pin to pin 39
-#define I2C_SCL 38                          // Set the SCL pin to pin 38
+#define RESET 13
+#define IO_RXD2 2
+#define IO_TXD2 15
 
-Adafruit_SSD1306 display(128, 64, &Wire, -1);  // OLED display initialization
+#define UWB_INDEX 0
 
-String response = "";                       // Initialize response string
-String rec_head = "AT+RANGE";               // String for AT commands
+#define ANCHOR
 
-void setup() {                              // Function for setup
-    pinMode(RESET, OUTPUT);                 // Set the RESET pin as output
-    digitalWrite(RESET, HIGH);              // Set the RESET pin to HIGH to initialize UWB
+#define UWB_TAG_COUNT 10
 
-    Serial.begin(115200);                   // Start the serial communication for debugging
-    mySerial2.begin(115200, SERIAL_8N1, IO_RXD2, IO_TXD2); // Initialize communication with UWB sensor
-    Wire.begin(I2C_SDA, I2C_SCL);           // Initialize I2C for OLED display
+#define SERIAL_LOG Serial
+#define SERIAL_AT mySerial2
 
-    // Initialize OLED display
-    if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {     // Check if OLED is connected
-        Serial.println(F("SSD1306 allocation failed"));   // Print error message
-        for (;;);  // Infinite loop if display initialization fails
+void setup() {
+    pinMode(RESET, OUTPUT);
+    digitalWrite(RESET, HIGH);
+
+    SERIAL_LOG.begin(115200);
+
+    SERIAL_LOG.print(F("Hello! ESP32-S3 AT command V1.0 Test"));
+    SERIAL_AT.begin(115200, SERIAL_8N1, IO_RXD2, IO_TXD2);
+
+    SERIAL_AT.println("AT");
+
+    sendData("AT?", 2000, 1);
+    sendData("AT+RESTORE", 5000, 1);
+    sendData(config_cmd(), 2000, 1);
+    sendData(cap_cmd(), 2000, 1);
+    sendData("AT+SETRPT=1", 2000, 1);
+    sendData("AT+SAVE", 2000, 1);
+    sendData("AT+RESTART", 2000, 1);
+    delay(2000);  // Wait for UWB module to finish booting
+
+    //Connect to Wi-Fi
+    // WiFi.begin(ssid);
+    // int i = 0;
+    // Serial.println("\nConnecting to Wi-Fi");
+    // checks fo wifi status, but will continue if no wifi is detected
+    // while (WiFi.status() != WL_CONNECTED) {
+    //     delay(1000);
+    //     Serial.print(".");
+    //     i += 1;
+    //     if (i > 10){
+    //       Serial.println("\nNo Wifi detected, continuing in offline mode");
+    //       break;
+    //     }
+    // }
+    // if (WiFi.status() == WL_CONNECTED){
+    //   Serial.println("\nWi-Fi connected");
+    //}
+    
+}
+long int runtime = 0;
+String response = "";
+String rec_head = "AT+RANGE";
+
+void loop(){
+    // put your main code here, to run repeatedly:
+    while (SERIAL_LOG.available() > 0){
+        SERIAL_AT.write(SERIAL_LOG.read());
+        yield();
     }
-    display.clearDisplay();                 // Clear the display
-    display.setTextSize(2);                 // Set text size
-    display.setTextColor(SSD1306_WHITE);    // Set text color
-    display.setCursor(0, 0);                // Start at the top-left corner
-    display.println(F("UWB Ready"));        // Print message
-    display.display();                      // Display message
-    delay(2000);                            // Delay
-
-    // Connect to Wi-Fi
-    WiFi.begin(ssid, password);                     // Connect to WiFi
-    display.clearDisplay();                         // Clear the display
-    display.setTextSize(1);                         // Set text size
-    display.setCursor(0, 0);                        // Start at the top left corner
-    display.println("Connecting to Wi-Fi...");      // Print message
-    display.display();                              // Display message
-    while (WiFi.status() != WL_CONNECTED) {         // Check if a WiFi connection was made
-        delay(500);                                 // Delay
-        Serial.print(".");                          // Print message
-    }
-    Serial.println("\nWi-Fi connected");            // Print message
-    display.println("Wi-Fi Connected");             // Display message
-    display.display();                              // Display
+    while (SERIAL_AT.available() > 0){
+        char c = SERIAL_AT.read();
+        if (c == '\r')
+            continue;
+        else if (c == '\n' || c == '\r'){
+            range_analy(response);
+            response = "";
+        }
+        else
+            response += c;
+}
 }
 
-void loop() {                                       // Loop function
-    // Read data from UWB sensor
-    while (mySerial2.available() > 0) {             // While data is available
-        char c = mySerial2.read();                  // Read the character
-        if (c == '\r') continue;                    // Check if the character is a carriage return
-        else if (c == '\n') {                       // Check if the character is new line or carriage return
-            if (response.indexOf(rec_head) != -1) { // Check if the index of rec_head is not -1
-                range_analy(response);              // Analyze range data when response header is found
-            }
-            response = "";                          // Reset response for the next data
-        } else {
-            response += c;                          // Accumulate the response from the sensor
+String sendData(String command, const int timeout, boolean debug)
+{
+    String response = "";
+    // command = command + "\r\n";
+
+    SERIAL_LOG.println(command);
+    SERIAL_AT.println(command); // send the read character to the SERIAL_LOG
+
+    long int time = millis();
+
+    while ((time + timeout) > millis())
+    {
+        while (SERIAL_AT.available())
+        {
+
+            // The esp has data so display its output to the serial window
+            char c = SERIAL_AT.read(); // read the next character.
+            response += c;
         }
     }
+
+    if (debug)
+    {
+        SERIAL_LOG.println(response);
+    }
+
+    return response;                
+}
+
+String config_cmd()
+{
+    String temp = "AT+SETCFG=";
+
+    // Set device id
+    temp = temp + UWB_INDEX;
+    
+    // Set device role
+    //x2:Device Role(0:Tag / 1:Anchor)
+    temp = temp + ",1";
+
+
+    // Set frequence 850k or 6.8M
+
+    temp = temp + ",1";
+
+    // Set range filter
+    temp = temp + ",1";
+
+    return temp;
+}
+
+String cap_cmd()
+{
+    String temp = "AT+SETCAP=";
+
+    // Set Tag capacity
+    temp = temp + UWB_TAG_COUNT;
+
+    //  Time of a single time slot  6.5M : 10MS  850K ： 15MS
+    temp = temp + ",10";
+    
+    //X3:extMode, whether to increase the passthrough command when transmitting
+    //(0: normal packet when communicating, 1: extended packet when communicating)
+    temp = temp + ",1";
+
+    return temp;
 }
 
 // Analyze range data and send it to the web server
-void range_analy(String data) {                   // Function to analyze data
-    String id_str = data.substring(data.indexOf("tid:") + 4, data.indexOf(",mask:"));       // Create a string for ID
-    String x_str = data.substring(data.indexOf("x:"), data.indexOf(",y:"));                 // Create a string for x-coordinates
-    String y_str = data.substring(data.indexOf("y:"), data.indexOf(",rssi:"));              // Create a string for y-coordinates
+void range_analy(String data) {
+    //getting range data
+    String id_str = data.substring(data.indexOf("tid:") + 4, data.indexOf(",mask:"));
+    String range_data = data.substring(data.indexOf("range:"), data.indexOf(",rssi:"));
+ 
+    int range_list[8];
+    int count = sscanf(range_data.c_str(), "range:(%d,%d,%d,%d,%d,%d,%d,%d)",
+                       &range_list[0], &range_list[1], &range_list[2], &range_list[3],
+                       &range_list[4], &range_list[5], &range_list[6], &range_list[7]);
 
-    float x_coordinate = x_str.toFloat();                                                   // Make x-coordinates into a float
-    float y_coordinate = y_str.toFloat();                                                   // Make y-coordinates into a float
+    // if (count != 8) {
+    //     Serial.println("RANGE ANALY ERROR");
+    //     return;
+    // }
+ 
+    String json_str = "{\"id\":" + id_str + ",\"range\":[";
+    for (int i = 0; i < 8; i++) {
+        json_str += String(range_list[i]);
+        if (i < 7) json_str += ",";
+    }
+    json_str += "]}";
+ 
+    Serial.println(json_str);
+    //ConvRangetoPos(id_str, range_list);
+}
 
-    String json_str = "{\"tag_id\":\"" + id_str + "\",\"x_coordinate\":" + String(x_coordinate) + "\",\"y_coordinate\":" + String(y_coordinate) + "}";      // Combine all data to be sent out
+void ConvRangetoPos(String id, int range_list[8]){    
+  //definine anchor coords
+    float x1 = 187, y1 = 0; //anchor 0
+    float x2 = 0, y2 = 0; //anchor 1
+    float x3 = 124, y3 = 105; //anchor 2
 
-    Serial.println(json_str);     // Print the JSON data to the Serial monitor
-    sendDataToServer(json_str);   // Send data to the Flask server
+    x1 += 32;
+    //y1 += 32;
+    x2 += 32;
+    //y2 += 32;
+    x3 += 32;
+    y3 += 32;
+
+    // extract range values
+    float d1 = range_list[0];
+    float d2 = range_list[1];
+    float d3 = range_list[2];
+    //Serial.println("I am computing");
+
+    // Trilateration calculations
+    float A = 2 * (x2 - x1);
+    float B = 2 * (y2 - y1);
+    float C = pow(d1, 2) - pow(d2, 2) - pow(x1, 2) + pow(x2, 2) - pow(y1, 2) + pow(y2, 2);
+
+    float D = 2 * (x3 - x1);
+    float E = 2 * (y3 - y1);
+    float F = pow(d1, 2) - pow(d3, 2) - pow(x1, 2) + pow(x3, 2) - pow(y1, 2) + pow(y3, 2);
+
+    // Calculate denominator to check validity
+    float denominator = A * E - B * D;
+
+    // Check for invalid solutions (denominator close to zero -> no solution or parallel)
+    if (abs(denominator) < 0.00001) {
+    Serial.println("Error: Invalid intersection or no solution.");
+    return;  // Exit if no valid intersection
+    }
+
+    // Solve for x and y using Cramer's rule
+    float x_coord = (C * E - F * B) / denominator;
+    float y_coord = (A * F - C * D) / denominator;
+    id = "James";
+
+    //String test_str = "{\"tag_id\":\"" + id + "\",\"x_coordinate\":" + String(x_coord) + ",\"y_coordinate\":" + String(y_coord) + "}";
+    // Serial.println(test_str);  // Print the JSON data to the Serial monitor\
+
+    //testing if x or y is negative
+    if (x_coord < 0){
+      Serial.println("Negative X coordinate");
+      return;
+    }
+    if (y_coord < 0){
+      Serial.println("Negative Y coordinate");
+      return;
+    }
+
+    // testing if x or y is too large
+    if (x_coord > 20000 ){
+      Serial.println("Bad data: y too big");
+      return;
+    }
+    if (y_coord > 20000){
+      Serial.println("Bad data: y too big");
+      return;
+    }
+
+    String json_str = "{\"tag_id\":\"" + id + "\",\"x_coordinate\":" + String(x_coord) + ",\"y_coordinate\":" + String(y_coord) + "}";
+    Serial.println(json_str);  // Print the JSON data to the Serial monitor
+    sendDataToServer(json_str);  // Send data to the Flask server}
 }
 
 // Send JSON data to the Flask server
-void sendDataToServer(String jsonData) {                  // Function to send data to the server
-    if (WiFi.status() == WL_CONNECTED) {                  // Check that WiFi is still connected
-        HTTPClient http;                                  // Create a http
-        http.begin(serverURL);                            // Connect to the server
-        http.addHeader("Content-Type", "application/json");   // Add a header to the http indicating JSON
+void sendDataToServer(String jsonData) {
+    if (WiFi.status() == WL_CONNECTED) {
+        HTTPClient http;
+        http.begin(serverURL);  // Connect to the Flask server
+        http.addHeader("Content-Type", "application/json");
+        http.addHeader("Referer","https://marching-band-lps.onrender.com");
 
-        int httpResponseCode = http.POST(jsonData);       // Send POST request with JSON data
-        if (httpResponseCode > 0) {                       // Check that post sent
-            String response = http.getString();           // Get the server's response
-            Serial.println("Server Response: " + response);   // Print message
-        } else {                                          // Otherwise
-            Serial.println("Error sending data. HTTP Response Code: " + String(httpResponseCode));      // Print message
+        int httpResponseCode = http.POST(jsonData);  // Send POST request with JSON data
+        if (httpResponseCode > 0) {
+            String response = http.getString();  // Get the server's response
+            Serial.println("Server Response: " + response);
+        } else {
+            Serial.println("Error sending data. HTTP Response Code: " + String(httpResponseCode));
         }
-        http.end();                                       // End the HTTP request
+        http.end();  // End the HTTP request
     } else {
-        Serial.println("Wi-Fi disconnected");             // Print message
+        Serial.println("Wi-Fi disconnected");
     }
 }
