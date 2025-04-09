@@ -210,20 +210,19 @@ def update_positions(request):                                                  
         try:                                                                            # Try
             data = json.loads(request.body)                                             # Load the request data in variable data
 
-            tag_id = data.get("tag_id")                                            # Extract the tag_id/username
+            tag_id = data.get("tag_id")+2                                          # Extract the tag_id/username
             x_coordinate = data.get("x_coordinate")                                # Extract the x_coordinate
             y_coordinate = data.get("y_coordinate")                                # Extract the y_coordinate
 
             if not all([tag_id, x_coordinate, y_coordinate]):                       # Check is line has all required data
                 print("ERROR")                                                      # Print error is not all required data present
 
-            user = User.objects.filter(username=tag_id).first()                     # Find a user with a matching username
-            if user:                                                                # If a user exists
-                position, created = Position.objects.get_or_create(user=user)       # Retrieve the user's position or create a new database entry if they don't have one
-                position.x_coordinate = x_coordinate                                # Update the users x_coordinate in the database
-                position.y_coordinate = y_coordinate                                # Update the users y_coordinate in the database
-                position.save()                                                     # Save the new database
-                return JsonResponse({"message": "Successful update", "username": user.username, "x":x_coordinate, "y":y_coordinate})  # Return JSON response with the updated positions
+            user_position = Position.objects.get(id=tag_id)                              # Find a user with a matching id in the Position database
+            if user_position:                                                            # If a user exists
+                user_position.x_coordinate = x_coordinate                                # Update the users x_coordinate in the database
+                user_position.y_coordinate = y_coordinate                                # Update the users y_coordinate in the database
+                user_position.save()                                                     # Save the new database
+                return JsonResponse({"message": "Successful update", "username": user_position.user.username, "x":x_coordinate, "y":y_coordinate})  # Return JSON response with the updated positions
 
             else:                                                                   # If a user doesn't exist
                 print("NO MATCH")                                                   # Display there was an error
