@@ -216,8 +216,8 @@ def update_positions(request):                                                  
 
             if not all([tag_id, x_coordinate, y_coordinate]):                       # Check is line has all required data
                 print("ERROR")                                                      # Print error is not all required data present
-
-            user_position = Position.objects.get(id=tag_id+2)                            # Find a user with a matching id in the Position database
+            tag_id = int(tag_id) + 2                                                # Convert tag_id to integer
+            user_position = Position.objects.get(id=tag_id)                            # Find a user with a matching id in the Position database
             if user_position:                                                            # If a user exists
                 user_position.x_coordinate = x_coordinate                                # Update the users x_coordinate in the database
                 user_position.y_coordinate = y_coordinate                                # Update the users y_coordinate in the database
