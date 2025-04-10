@@ -185,6 +185,9 @@ function RandomMovement(marcher, dot){                                          
     // Setting the new position
     dot.style.left = `${x_direction}px`;                                        // Move the current marcher's dot from the left accordingly
     dot.style.top = `${y_direction}px`;                                         // Move the current marcher's dot from the top accordingly
+    console.log(marcher);
+    console.log(x_direction);
+    console.log(y_direction);
 }
 
 function ShowMembers(){                                                     // function to show members catalog
