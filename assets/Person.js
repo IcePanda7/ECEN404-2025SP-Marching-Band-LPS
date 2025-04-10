@@ -182,12 +182,12 @@ function RandomMovement(marcher, dot){                                          
         y_direction = menu_height + title_height + field_height - dot_dimension;    // If Case 4: the y direction becomes the menu height plus the title height plus the field height minus dot's dimensions
     }
 
-    // Setting the new position
-    dot.style.left = `${x_direction}px`;                                        // Move the current marcher's dot from the left accordingly
-    dot.style.top = `${y_direction}px`;                                         // Move the current marcher's dot from the top accordingly
     console.log(marcher);
     console.log(x_direction);
     console.log(y_direction);
+    // Setting the new position
+    dot.style.left = `${x_direction}px`;                                        // Move the current marcher's dot from the left accordingly
+    dot.style.top = `${y_direction}px`;                                         // Move the current marcher's dot from the top accordingly
 }
 
 function ShowMembers(){                                                     // function to show members catalog
