@@ -160,9 +160,11 @@ function RandomMovement(marcher, dot){                                          
     dot.style.width = `${dot_dimension}px`;                                                 // Change the width of the dot
     dot.style.height = `${dot_dimension}px`;                                                // Change the height of the dot
 
+    console.log("Field height: ", field_height, "Menu height:", menu_height, "Title Height:", title_height);
+    console.log("Field Width:", field_width);
 
-    x_direction = (marcher.x_coordinate * (field_width / 1203) + horizontal_offset)/6;                      // Equation for the marcher's x direction for different field sizes
-    y_direction = (marcher.y_coordinate * (field_height/622.61) + menu_height + title_height)/6;            // Equation for the marcher's y direction for different field sizes
+    x_direction = ((marcher.x_coordinate * (field_width / 1203)) / 9.121) + horizontal_offset;                      // Equation for the marcher's x direction for different field sizes
+    y_direction = ((marcher.y_coordinate * (field_height/622.61)) / 7.33) + menu_height + title_height;            // Equation for the marcher's y direction for different field sizes
 
 
     // Case 1: x out of bounds left
