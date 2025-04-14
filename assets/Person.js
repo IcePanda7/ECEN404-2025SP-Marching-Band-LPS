@@ -57,8 +57,8 @@ function StartBlinking(){                                                 // Def
                 dot.addEventListener('mouseenter', function(){              // For when a user hovers over a dot
                     tooltip.classList.add('show');                                             // Show the description box
                     const rect = dot.getBoundingClientRect();                        // To position the box
-                    tooltip.style.left = `${rect.left-190}px`;                                 // Position from the left
-                    tooltip.style.top = `${rect.top-290}px`;                                   // Position from the top
+                    tooltip.style.left = `${rect.left+5}px`;                                 // Position from the left
+                    tooltip.style.top = `${rect.top}px`;                                   // Position from the top
                 });
                 dot.addEventListener('mouseleave', function(){              // For when a user hover off a dot
                     tooltip.classList.remove('show');                                   // Don't show the description box
