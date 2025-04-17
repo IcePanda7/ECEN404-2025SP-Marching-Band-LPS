@@ -57,8 +57,9 @@ function StartBlinking(){                                                 // Def
                 dot.addEventListener('mouseenter', function(){              // For when a user hovers over a dot
                     tooltip.classList.add('show');                                             // Show the description box
                     const rect = dot.getBoundingClientRect();                        // To position the box
-                    tooltip.style.left = `${rect.left+5}px`;                                 // Position from the left
-                    tooltip.style.top = `${rect.top}px`;                                   // Position from the top
+                    console.log(`${rect.top}px`);
+                    tooltip.style.left = `${rect.left-190}px`;                                 // Position from the left
+                    tooltip.style.top = `${rect.top-800}px`;                                   // Position from the top
                 });
                 dot.addEventListener('mouseleave', function(){              // For when a user hover off a dot
                     tooltip.classList.remove('show');                                   // Don't show the description box
@@ -156,14 +157,14 @@ function RandomMovement(marcher, dot){                                          
     const title_height = title_pixels.offsetHeight;                                 // Get the height of the title
 
 
-    let dot_dimension = 10 * field_width / 1203;                                    // Change the dimension of the dot based on page size
+    let dot_dimension = 10 * field_width / 1205;                                    // Change the dimension of the dot based on page size
     dot.style.width = `${dot_dimension}px`;                                                 // Change the width of the dot
     dot.style.height = `${dot_dimension}px`;                                                // Change the height of the dot
 
     console.log("Field height: ", field_height, "Menu height:", menu_height, "Title Height:", title_height);
     console.log("Field Width:", field_width);
 
-    x_direction = ((marcher.x_coordinate * (field_width / 1203)) / 9.2) + horizontal_offset;                      // Equation for the marcher's x direction for different field sizes
+    x_direction = ((marcher.x_coordinate * (field_width / 1205)) / 9.2) + horizontal_offset;                      // Equation for the marcher's x direction for different field sizes
     y_direction = menu_height + title_height + field_height - ((marcher.y_coordinate * (field_height/622.61)) / 7.1);            // Equation for the marcher's y direction for different field sizes
 
 

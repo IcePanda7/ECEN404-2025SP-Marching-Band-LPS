@@ -194,8 +194,12 @@ function RandomMovement(x, y, dot){                                             
     dot.style.width = `${dot_dimension}px`;                                                 // Change the width of the dot
     dot.style.height = `${dot_dimension}px`;                                                // Change the height of the dot
 
-    x_direction = x * (field_width / 1220) + horizontal_offset;                                            // Equation for the marcher's x direction for different field sizes
-    y_direction = y * (field_height/631.41) + menu_height + title_height + 50;                             // Get the y coordinate of the current marcher
+    x_direction = ((x * (field_width / 1205)) / 9.2) + horizontal_offset;                                            // Equation for the marcher's x direction for different field sizes
+    y_direction = menu_height + title_height + field_height + 30 - ((y * (field_height/749.14)) / 7.1);              // Get the y coordinate of the current marcher
+
+    console.log(`${menu_height}px`);
+    console.log(`${title_height}px`);
+    console.log(`${field_height}px`);
 
 
     // Case 1: x out of bounds left
@@ -207,12 +211,12 @@ function RandomMovement(x, y, dot){                                             
         x_direction = field_width + horizontal_offset - dot_dimension;              // If Case 2: the x direction becomes the field width and the horizontal offset minus the dot's dimensions
     }
     // Case 3: y out of bounds up
-    if(y_direction < menu_height + title_height + 50){
-        y_direction = menu_height + title_height + 50;                                   // If Case 3: the y direction becomes the menu height plus the title height plus the margin
+    if(y_direction < menu_height + title_height + 30){
+        y_direction = menu_height + title_height + 30;                                   // If Case 3: the y direction becomes the menu height plus the title height plus the margin
     }
     // Case 4: y out of bounds down
-    if(y_direction > menu_height + title_height + field_height - dot_dimension + 50){
-        y_direction = menu_height + title_height + field_height - dot_dimension + 50;    // If Case 4: the y direction becomes the menu height plus the title height plus the field height minus dot's dimensions plus the margin
+    if(y_direction > menu_height + title_height + field_height - dot_dimension + 30){
+        y_direction = menu_height + title_height + field_height - dot_dimension + 30;    // If Case 4: the y direction becomes the menu height plus the title height plus the field height minus dot's dimensions plus the margin
     }
 
     // Setting the new position
