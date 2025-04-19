@@ -4,23 +4,23 @@
 #include <Arduino.h>
 
 // Wi-Fi credentials
-// ESP32 Board MAC Address: ******
+// ESP32 Board MAC Address: f8:b3:b7:4f:dc:6c
 
 
 //Alex Apartment WiFi
-// const char* ssid = "******";           // Replace with your Wi-Fi SSID
-// const char* password = "******";      // Replace with your Wi-Fi password
+// const char* ssid = "WhiteSky-Hudson";           // Replace with your Wi-Fi SSID
+// const char* password = "d3xey8kz";      // Replace with your Wi-Fi password
 
 //TAMU WiFi
-//const char* ssid = "******";           // Replace with your Wi-Fi SSID
+//const char* ssid = "TAMU_IoT";           // Replace with your Wi-Fi SSID
 
 //Alex Phone WiFi
-// const char* ssid = "******";           // Replace with your Wi-Fi SSID
-// const char* password = "******";      // Replace with your Wi-Fi password
+// const char* ssid = "AlexPhone";           // Replace with your Wi-Fi SSID
+// const char* password = "1Alexander";      // Replace with your Wi-Fi password
 
 //Alex House
-const char* ssid = "******";           // Replace with your Wi-Fi SSID
-const char* password = "******";      // Replace with your Wi-Fi password
+const char* ssid = "FBI Van";           // Replace with your Wi-Fi SSID
+const char* password = "steve1107";      // Replace with your Wi-Fi password
 
 // Web server URL (Replace with your Flask server IP)
 const char* serverURL = "https://marching-band-lps.onrender.com/BandField/update_positions/";  // Example: Flask server running on IP 192.168.100.3
@@ -46,9 +46,9 @@ void setup() {
 
     SERIAL_LOG.begin(115200);
 
-    SERIAL_LOG.print(F("Hello! ESP32-S3 AT command V1.0 Test"));
+    SERIAL_LOG.println("Hello! Marching Band LPS Test Commencing");
     SERIAL_AT.begin(115200, SERIAL_8N1, IO_RXD2, IO_TXD2);
-
+    delay(3000);
     SERIAL_AT.println("AT");
 
     sendData("AT?", 2000, 1);
@@ -58,13 +58,13 @@ void setup() {
     sendData("AT+SETRPT=1", 2000, 1);
     sendData("AT+SAVE", 2000, 1);
     sendData("AT+RESTART", 2000, 1);
-    delay(2000);  // Wait for UWB module to finish booting
+    delay(3000);  // Wait for UWB modulo9=-999e to finish booting
 
-    //Connect to Wi-Fi
-    // WiFi.begin(ssid);
+    // //Connect to Wi-Fi
+    // WiFi.begin(ssid, password);
     // int i = 0;
     // Serial.println("\nConnecting to Wi-Fi");
-    // checks fo wifi status, but will continue if no wifi is detected
+    // //checks fo wifi status, but will continue if no wifi is detected
     // while (WiFi.status() != WL_CONNECTED) {
     //     delay(1000);
     //     Serial.print(".");
@@ -76,7 +76,7 @@ void setup() {
     // }
     // if (WiFi.status() == WL_CONNECTED){
     //   Serial.println("\nWi-Fi connected");
-    //}
+    // }
     
 }
 long int runtime = 0;
@@ -194,14 +194,14 @@ void range_analy(String data) {
     json_str += "]}";
  
     Serial.println(json_str);
-    //ConvRangetoPos(id_str, range_list);
+    ConvRangetoPos(id_str, range_list);
 }
 
 void ConvRangetoPos(String id, int range_list[8]){    
   //definine anchor coords
-    float x1 = 187, y1 = 0; //anchor 0
-    float x2 = 0, y2 = 0; //anchor 1
-    float x3 = 124, y3 = 105; //anchor 2
+    float x1 = 0, y1 = 0; //anchor 0
+    float x2 = 975.36, y2 = 0; //anchor 1
+    float x3 = 487.68, y3 = 1097.28; //anchor 2
 
     x1 += 32;
     //y1 += 32;
