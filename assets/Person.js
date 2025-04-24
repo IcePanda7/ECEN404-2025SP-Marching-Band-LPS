@@ -161,8 +161,6 @@ function RandomMovement(marcher, dot){                                          
     dot.style.width = `${dot_dimension}px`;                                                 // Change the width of the dot
     dot.style.height = `${dot_dimension}px`;                                                // Change the height of the dot
 
-    console.log("Field height: ", field_height, "Menu height:", menu_height, "Title Height:", title_height);
-    console.log("Field Width:", field_width);
 
     x_direction = ((marcher.x_coordinate * (field_width / 1205)) / 9.2) + horizontal_offset;                      // Equation for the marcher's x direction for different field sizes
     y_direction = menu_height + title_height + field_height - ((marcher.y_coordinate * (field_height/622.61)) / 7.1);            // Equation for the marcher's y direction for different field sizes
@@ -185,9 +183,7 @@ function RandomMovement(marcher, dot){                                          
         y_direction = menu_height + title_height + field_height - dot_dimension;    // If Case 4: the y direction becomes the menu height plus the title height plus the field height minus dot's dimensions
     }
 
-    console.log(marcher);
-    console.log(x_direction);
-    console.log(y_direction);
+
     // Setting the new position
     dot.style.left = `${x_direction}px`;                                        // Move the current marcher's dot from the left accordingly
     dot.style.top = `${y_direction}px`;                                         // Move the current marcher's dot from the top accordingly

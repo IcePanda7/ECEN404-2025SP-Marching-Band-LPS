@@ -134,7 +134,7 @@ def recording(session):                                                         
 
     while session.recording and elapsed_time < 60:                              # Keep the session recording as long as the recording hasn't manually stopped and the time hasn't lapsed 60 seconds
         for marcher in marchers:                                                # Iterate through all the marchers
-            position = Position.objects.get(user=marcher)
+            position = Position.objects.get(user=marcher)               # Fetch the current position
             x = position.x_coordinate                                   # Find the current indexed marcher's x coordinate
             y = position.y_coordinate                                   # Find the current indexed marcher's y coordinate
 
