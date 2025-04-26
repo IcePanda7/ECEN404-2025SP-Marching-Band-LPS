@@ -61,22 +61,22 @@ void setup() {
     delay(3000);  // Wait for UWB modulo9=-999e to finish booting
 
     // //Connect to Wi-Fi
-    // WiFi.begin(ssid, password);
-    // int i = 0;
-    // Serial.println("\nConnecting to Wi-Fi");
-    // //checks fo wifi status, but will continue if no wifi is detected
-    // while (WiFi.status() != WL_CONNECTED) {
-    //     delay(1000);
-    //     Serial.print(".");
-    //     i += 1;
-    //     if (i > 10){
-    //       Serial.println("\nNo Wifi detected, continuing in offline mode");
-    //       break;
-    //     }
-    // }
-    // if (WiFi.status() == WL_CONNECTED){
-    //   Serial.println("\nWi-Fi connected");
-    // }
+    WiFi.begin(ssid, password);
+    int i = 0;
+    Serial.println("\nConnecting to Wi-Fi");
+    //checks fo wifi status, but will continue if no wifi is detected
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(1000);
+        Serial.print(".");
+        i += 1;
+        if (i > 10){
+          Serial.println("\nNo Wifi detected, continuing in offline mode");
+          break;
+        }
+    }
+    if (WiFi.status() == WL_CONNECTED){
+      Serial.println("\nWi-Fi connected");
+    }
     
 }
 long int runtime = 0;
